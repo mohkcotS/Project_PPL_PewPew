@@ -1,5 +1,6 @@
 import pygame
 from Entity.Player.player import Player
+from Entity.Bullet.bullet import Bullet
 from Entity.Monster.rightMonster import RightMonster
 from Entity.Monster.midRightMonster import MidRightMonster
 from Entity.Monster.midMonster import MidMonster
@@ -43,19 +44,16 @@ while running:
     monster1.draw(screen)
     monster1.move()
     monster1.auto_shoot()
-    monster1.move()
     monster1.update_bullets()
     
     monster2.draw(screen)
     monster2.move()
     monster2.auto_shoot()
-    monster2.move()
     monster2.update_bullets()
     
     monster3.draw(screen)
     monster3.move()
     monster3.auto_shoot()
-    monster3.move()
     monster3.update_bullets()
     
     pygame.display.flip()

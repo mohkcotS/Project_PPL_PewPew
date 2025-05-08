@@ -11,7 +11,7 @@ class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
         self.bullets = []
         self.direction = direction
     
-     @abstractmethod
+    @abstractmethod
     def draw(self, surface):
         pass  # Lớp con bắt buộc phải override
     
@@ -29,7 +29,7 @@ class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
     def update_bullets(self):
         for bullet in self.bullets:
             bullet.move()
-        self.bullets = [bullet for bullet in self.bullets if bullet.x < 640 + bullet.radius]
+        self.bullets = [bullet for bullet in self.bullets if bullet.x < 800 + bullet.radius]
     
     def draw_bullets(self, surface):
         for bullet in self.bullets:

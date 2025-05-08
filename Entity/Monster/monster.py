@@ -4,12 +4,15 @@ import pygame
 from Entity.Bullet.bullet import Bullet
 
 
-class Monster(Entity, ABC):  # Kế thừa từ Entity và ABC để thành lớp trừu tượng
-    def __init__(self, x, y, color=(255, 0, 0), radius=30, speed=2, health=100):
+class Monster(Entity, ABC): 
+    def __init__(self, x, y, direction, color=(255, 0, 0), radius=30, speed=0.5, health=100):
         super().__init__(x, y, color)
         self.radius = radius
         self.speed = speed
         self.health = health
+        self.last_shot = 0
+        self.shoot_cooldown = 500
+        self.direction = direction
 
     @abstractmethod
     def move(self):
@@ -21,7 +24,6 @@ class Monster(Entity, ABC):  # Kế thừa từ Entity và ABC để thành lớ
             self.shootBullet(Bullet)
             self.last_shot = current_time
 
+    @abstractmethod
     def draw(self, surface):
-        pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
-        self.draw_bullets(surface)
-
+        pass
