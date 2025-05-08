@@ -7,8 +7,8 @@ class LeftMonster(Monster):
         super().__init__(x, y, direction, color)  
 
     def move(self):
-        self.y += self.speed * math.sin(math.radians(50.1944))
-        self.x += self.speed * math.cos(math.radians(50.1944))
+        self.y += self.speed * math.sin(math.radians(44))
+        self.x += self.speed * math.cos(math.radians(44))
     
     def draw(self, surface):
         pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)

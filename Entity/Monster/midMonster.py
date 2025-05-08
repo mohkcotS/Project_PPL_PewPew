@@ -2,7 +2,7 @@ from Entity.Monster.monster import Monster
 import pygame
 
 class MidMonster(Monster): 
-    def __init__(self, x=400, y=0, direction="mid", color=(255, 0, 0)):
+    def __init__(self, x=600, y=0, direction="mid", color=(255, 0, 0)):
         super().__init__(x, y, direction, color)  
 
     def move(self):
