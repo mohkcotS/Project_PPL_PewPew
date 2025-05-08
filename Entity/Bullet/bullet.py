@@ -1,7 +1,7 @@
 from Entity.entity import Entity  # Import class Entity từ entity.py
 import pygame
 import math
-from  direction import Direction
+from  Controller.direction import Direction
 
 class Bullet(Entity):
     def __init__(self, x, y, direction, color=(255, 255, 0), radius=5, speed=3.5):
