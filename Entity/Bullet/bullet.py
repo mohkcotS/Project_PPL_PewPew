@@ -4,7 +4,7 @@ import math
 from  direction import Direction
 
 class Bullet(Entity):
-    def __init__(self, x, y, color=(255, 255, 0), radius=5, speed=5, direction="mid"):
+    def __init__(self, x, y, direction, color=(255, 255, 0), radius=5, speed=5):
         super().__init__(x, y, color, radius, speed)
         self.direction = direction
 
@@ -19,9 +19,11 @@ class Bullet(Entity):
         elif self.direction == "mid":
             self.y += self.speed
         elif self.direction == "mid-left":
-            self.x += self.speed
+            self.y += self.speed * math.sin(math.radians(67.3801))
+            self.x += self.speed * math.cos(math.radians(67.3801))
         elif self.direction == "left":
-            self.x += self.speed
+            self.y += self.speed * math.sin(math.radians(50.1944))
+            self.x += self.speed * math.cos(math.radians(50.1944))
         # Player
         elif self.direction == Direction.LEFT_PLAYER:
             self.y -= self.speed * math.sin(math.radians(50.1944))
