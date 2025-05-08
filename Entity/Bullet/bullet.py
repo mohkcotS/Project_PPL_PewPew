@@ -4,7 +4,7 @@ import math
 from  direction import Direction
 
 class Bullet(Entity):
-    def __init__(self, x, y, direction, color=(255, 255, 0), radius=5, speed=5):
+    def __init__(self, x, y, direction, color=(255, 255, 0), radius=5, speed=3.5):
         super().__init__(x, y, color, radius, speed)
         self.direction = direction
 
