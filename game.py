@@ -1,4 +1,6 @@
 import pygame
+from Entity.Player.player import Player
+from Entity.Monster.monster import Monster
 pygame.init()
 
 screen = pygame.display.set_mode((640, 480))
@@ -6,34 +8,19 @@ pygame.display.set_caption("Quái vật hướng đối tượng")
 
 clock = pygame.time.Clock()
 
-# Định nghĩa lớp Monster
-class Monster:
-    def __init__(self, x, y, color=(0, 255, 0), radius=30, speed=2):
-        self.x = x
-        self.y = y
-        self.color = color
-        self.radius = radius
-        self.speed = speed
-
-    def move(self):
-        self.x += self.speed  # Di chuyển sang phải
-
-    def draw(self, surface):
-        pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
-
-# Tạo một con quái
-monster = Monster(50, 200)
+player = Player(320, 450)
+monster = Monster(320,0)
 
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    monster.move()
-
+    
     screen.fill((0, 0, 0))  # nền đen
+    player.draw(screen)
     monster.draw(screen)
+    monster.move()
 
     pygame.display.flip()
     clock.tick(60)
