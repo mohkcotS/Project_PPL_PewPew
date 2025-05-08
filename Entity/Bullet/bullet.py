@@ -1,12 +1,25 @@
 from Entity.entity import Entity  # Import class Entity từ entity.py
 import pygame
 
-class Bullet(Entity):  # Kế thừa class Entity
-    def __init__(self, x, y, color=(255, 255, 0), radius=5, speed=5):
-        super().__init__(x, y, color, radius, speed)  # Gọi hàm __init__ của lớp cha (Entity)
+class Bullet(Entity):
+    def __init__(self, x, y, color=(255, 255, 0), radius=5, speed=5, direction="mid"):
+        super().__init__(x, y, color, radius, speed)
+        self.direction = direction
 
     def move(self):
-        self.x += self.speed  # Bullet di chuyển theo trục x
+        if self.direction == "right":
+            self.y -= self.speed
+        elif self.direction == "mid-right":
+            self.y += self.speed
+        elif self.direction == "mid":
+            self.y += self.speed
+        elif self.direction == "mid-left":
+            self.x += self.speed
+        elif self.direction == "left":
+            self.x += self.speed
+        # Player
+        elif self.direction == "mid_player":
+            self.y -= self.speed
 
     def draw(self, surface):
-        pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)  # Vẽ viên đạn
+        pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)

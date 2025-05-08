@@ -4,7 +4,8 @@ from Entity.Monster.rightMonster import RightMonster
 from Entity.Monster.midRightMonster import MidRightMonster
 from Entity.Monster.midMonster import MidMonster
 pygame.init()
-pygame.display.set_caption("Quái vật hướng đối tượng")
+pygame.display.set_caption("Pew pew")
+
 clock = pygame.time.Clock()
 
 width = 800
@@ -28,19 +29,35 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:  # Nhấn Enter để Player bắn
+                player.shootBullet(Bullet)
     
-    screen.fill((0, 0, 0))  # nền đen
 
+    screen.fill((0, 0, 0))  # nền đen
 
     pygame.draw.line(screen, line_color, start_pos, end_pos, line_width)
     player.draw(screen)
+    player.update_bullets()
+    
     monster1.draw(screen)
     monster1.move()
+    monster1.auto_shoot()
+    monster1.move()
+    monster1.update_bullets()
+    
     monster2.draw(screen)
     monster2.move()
+    monster2.auto_shoot()
+    monster2.move()
+    monster2.update_bullets()
+    
     monster3.draw(screen)
     monster3.move()
-
+    monster3.auto_shoot()
+    monster3.move()
+    monster3.update_bullets()
+    
     pygame.display.flip()
     clock.tick(60)
 
