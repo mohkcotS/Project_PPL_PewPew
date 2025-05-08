@@ -1,17 +1,28 @@
 import pygame
 from Entity.Player.player import Player
-from Entity.Monster.monster import Monster
-from Entity.Bullet.bullet import Bullet
-
+from Entity.Monster.rightMonster import RightMonster
+from Entity.Monster.midRightMonster import MidRightMonster
+from Entity.Monster.midMonster import MidMonster
 pygame.init()
-
-screen = pygame.display.set_mode((640, 480))
 pygame.display.set_caption("Pew pew")
 
 clock = pygame.time.Clock()
 
-player = Player(320, 450)
-monster = Monster(320,0)
+width = 800
+height = 600
+
+start_pos = (0, (4/5)*height)  # Vị trí bắt đầu (x, y)
+end_pos = (width, (4/5) *height)    # Vị trí kết thúc (x, y)
+line_color = (255, 255, 255)  # white
+line_width = 3 
+
+screen = pygame.display.set_mode((width, height))
+        
+
+player = Player()
+monster1 = RightMonster()
+monster2 = MidRightMonster()
+monster3 = MidMonster()
 
 running = True
 while running:
@@ -22,14 +33,31 @@ while running:
             if event.key == pygame.K_RETURN:  # Nhấn Enter để Player bắn
                 player.shootBullet(Bullet)
     
-    monster.auto_shoot()
-    monster.move()
-    player.update_bullets()
-    monster.update_bullets()
 
-    screen.fill((0, 0, 0))
+    screen.fill((0, 0, 0))  # nền đen
+
+    pygame.draw.line(screen, line_color, start_pos, end_pos, line_width)
     player.draw(screen)
-    monster.draw(screen)
+    player.update_bullets()
+    
+    monster1.draw(screen)
+    monster1.move()
+    monster1.auto_shoot()
+    monster1.move()
+    monster1.update_bullets()
+    
+    monster2.draw(screen)
+    monster2.move()
+    monster2.auto_shoot()
+    monster2.move()
+    monster2.update_bullets()
+    
+    monster3.draw(screen)
+    monster3.move()
+    monster3.auto_shoot()
+    monster3.move()
+    monster3.update_bullets()
+    
     pygame.display.flip()
     clock.tick(60)
 

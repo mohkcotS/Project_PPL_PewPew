@@ -1,5 +1,7 @@
+from abc import ABC, abstractmethod
 import pygame
-class Entity:
+
+class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
     def __init__(self, x, y, color=(0, 255, 0), radius=30, speed=2, direction="mid"):
         self.x = x
         self.y = y
@@ -8,10 +10,11 @@ class Entity:
         self.speed = speed
         self.bullets = []
         self.direction = direction
-
-    def move(self):
-        self.y += self.speed 
-
+    
+     @abstractmethod
+    def draw(self, surface):
+        pass  # Lớp con bắt buộc phải override
+    
     def shootBullet(self, bullet_class):
         bullet = bullet_class(
             x=self.x, 
@@ -27,9 +30,6 @@ class Entity:
         for bullet in self.bullets:
             bullet.move()
         self.bullets = [bullet for bullet in self.bullets if bullet.x < 640 + bullet.radius]
-
-    def draw(self, surface):
-        pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
     
     def draw_bullets(self, surface):
         for bullet in self.bullets:
