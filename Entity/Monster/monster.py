@@ -1,14 +1,18 @@
-from Entity.entity import Entity  # Import class Entity từ entity.py
+from abc import ABC, abstractmethod
+from Entity.entity import Entity
 import pygame
 
-class Monster(Entity):  # Kế thừa class Entity
+class Monster(Entity, ABC):  # Kế thừa từ Entity và ABC để thành lớp trừu tượng
     def __init__(self, x, y, color=(255, 0, 0), radius=30, speed=2, health=100):
-        super().__init__(x, y, color, radius, speed)  # Gọi hàm __init__ của lớp cha (Entity)
-        self.health = health  # Thêm thuộc tính riêng cho Monster
+        super().__init__(x, y, color)
+        self.radius = radius
+        self.speed = speed
+        self.health = health
 
+    @abstractmethod
     def move(self):
-        self.y += self.speed  # Có thể tùy chỉnh lại phương thức move nếu cần
+        pass  # Lớp con bắt buộc phải override
 
+    @abstractmethod
     def draw(self, surface):
-        pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)  # Vẽ quái vật
-        # Thêm vẽ thông tin khác nếu cần
+        pass  # Lớp con bắt buộc phải override

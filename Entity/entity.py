@@ -1,14 +1,11 @@
-import pygame
-class Entity:
-    def __init__(self, x, y, color=(0, 255, 0), radius=30, speed=2):
+from abc import ABC, abstractmethod
+
+class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
+    def __init__(self, x, y, color=(0, 255, 0)):
         self.x = x
         self.y = y
-        self.color = color
-        self.radius = radius
-        self.speed = speed
+        self.color = color 
 
-    def move(self):
-        self.y += self.speed 
-
+    @abstractmethod
     def draw(self, surface):
-        pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
+        pass  # Lớp con bắt buộc phải override
