@@ -11,34 +11,34 @@ class Bullet(Entity):
     def move(self):
         # Monster
         if self.direction == "right":
-            self.y += self.speed * math.sin(math.radians(50.1944))
-            self.x -= self.speed * math.cos(math.radians(50.1944))
+            self.y += self.speed * math.sin(math.radians(44))
+            self.x -= self.speed * math.cos(math.radians(44))
         elif self.direction == "mid-right":
-            self.y += self.speed * math.sin(math.radians(67.3801))
-            self.x -= self.speed * math.cos(math.radians(67.3801))
+            self.y += self.speed * math.sin(math.radians(62))
+            self.x -= self.speed * math.cos(math.radians(62))
         elif self.direction == "mid":
             self.y += self.speed
         elif self.direction == "mid-left":
-            self.y += self.speed * math.sin(math.radians(67.3801))
-            self.x += self.speed * math.cos(math.radians(67.3801))
+            self.y += self.speed * math.sin(math.radians(62))
+            self.x += self.speed * math.cos(math.radians(62))
         elif self.direction == "left":
-            self.y += self.speed * math.sin(math.radians(50.1944))
-            self.x += self.speed * math.cos(math.radians(50.1944))
+            self.y += self.speed * math.sin(math.radians(44))
+            self.x += self.speed * math.cos(math.radians(44))
         # Player
         elif self.direction == Direction.LEFT_PLAYER:
-            self.y -= self.speed * math.sin(math.radians(50.1944))
-            self.x -= self.speed * math.cos(math.radians(50.1944))
+            self.y -= self.speed * math.sin(math.radians(44))
+            self.x -= self.speed * math.cos(math.radians(44))
         elif self.direction == Direction.MID_LEFT_PLAYER:
-            self.y -= self.speed * math.sin(math.radians(67.3801))
-            self.x -= self.speed * math.cos(math.radians(67.3801))
+            self.y -= self.speed * math.sin(math.radians(62))
+            self.x -= self.speed * math.cos(math.radians(62))
         elif self.direction == Direction.MID_PLAYER:
             self.y -= self.speed 
         elif self.direction == Direction.MID_RIGHT_PLAYER:
-            self.y -= self.speed * math.sin(math.radians(67.3801))
-            self.x += self.speed * math.cos(math.radians(67.3801))
+            self.y -= self.speed * math.sin(math.radians(62))
+            self.x += self.speed * math.cos(math.radians(62))
         elif self.direction == Direction.RIGHT_PLAYER:
-            self.y -= self.speed * math.sin(math.radians(50.1944))
-            self.x += self.speed * math.cos(math.radians(50.1944))
+            self.y -= self.speed * math.sin(math.radians(44))
+            self.x += self.speed * math.cos(math.radians(44))
        
 
     def draw(self, surface):

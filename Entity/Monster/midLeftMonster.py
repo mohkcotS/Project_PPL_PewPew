@@ -3,12 +3,12 @@ import pygame
 import math
 
 class MidLeftMonster(Monster):  # Kế thừa class Entity
-    def __init__(self, x=200, y=0, direction="mid-left", color=(255, 255, 0)):
+    def __init__(self, x=300, y=0, direction="mid-left", color=(255, 255, 0)):
         super().__init__(x, y, direction, color)  
 
     def move(self):
-        self.y += self.speed * math.sin(math.radians(67.3801))
-        self.x += self.speed * math.cos(math.radians(67.3801))
+        self.y += self.speed * math.sin(math.radians(62))
+        self.x += self.speed * math.cos(math.radians(62))
 
     def draw(self, surface):
         pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
