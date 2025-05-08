@@ -4,6 +4,9 @@ from Entity.Bullet.bullet import Bullet
 from Entity.Monster.rightMonster import RightMonster
 from Entity.Monster.midRightMonster import MidRightMonster
 from Entity.Monster.midMonster import MidMonster
+from Entity.Monster.leftMonster import LeftMonster
+from Entity.Monster.midLeftMonster import MidLeftMonster
+
 pygame.init()
 pygame.display.set_caption("Pew pew")
 
@@ -21,9 +24,11 @@ screen = pygame.display.set_mode((width, height))
         
 
 player = Player()
-monster1 = RightMonster()
-monster2 = MidRightMonster()
-monster3 = MidMonster()
+monster_right = RightMonster()
+monster_mid_right = MidRightMonster()
+monster_mid = MidMonster()
+monster_left = LeftMonster()
+monster_mid_left = MidLeftMonster()
 
 running = True
 while running:
@@ -41,20 +46,30 @@ while running:
     player.draw(screen)
     player.update_bullets()
     
-    monster1.draw(screen)
-    monster1.move()
-    monster1.auto_shoot()
-    monster1.update_bullets()
+    monster_right.draw(screen)
+    monster_right.move()
+    monster_right.auto_shoot()
+    monster_right.update_bullets()
     
-    monster2.draw(screen)
-    monster2.move()
-    monster2.auto_shoot()
-    monster2.update_bullets()
+    monster_mid_right.draw(screen)
+    monster_mid_right.move()
+    monster_mid_right.auto_shoot()
+    monster_mid_right.update_bullets()
     
-    monster3.draw(screen)
-    monster3.move()
-    monster3.auto_shoot()
-    monster3.update_bullets()
+    monster_mid.draw(screen)
+    monster_mid.move()
+    monster_mid.auto_shoot()
+    monster_mid.update_bullets()
+    
+    monster_left.draw(screen)
+    monster_left.move()
+    monster_left.auto_shoot()
+    monster_left.update_bullets()
+
+    monster_mid_left.draw(screen)
+    monster_mid_left.move()
+    monster_mid_left.auto_shoot()
+    monster_mid_left.update_bullets()
     
     pygame.display.flip()
     clock.tick(60)

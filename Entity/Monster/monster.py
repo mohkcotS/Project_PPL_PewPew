@@ -5,18 +5,18 @@ from Entity.Bullet.bullet import Bullet
 
 
 class Monster(Entity, ABC): 
-    def __init__(self, x, y, direction, color=(255, 0, 0), radius=30, speed=0.5, health=100):
+    def __init__(self, x, y, direction, color=(255, 0, 0), radius=30, speed=2, health=100):
         super().__init__(x, y, color)
         self.radius = radius
         self.speed = speed
         self.health = health
         self.last_shot = 0
-        self.shoot_cooldown = 500
+        self.shoot_cooldown = 200
         self.direction = direction
 
     @abstractmethod
     def move(self):
-        pass  # Lớp con bắt buộc phải override
+        pass  
 
     def auto_shoot(self):
         current_time = pygame.time.get_ticks()
