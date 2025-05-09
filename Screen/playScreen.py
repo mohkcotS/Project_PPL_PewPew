@@ -47,6 +47,7 @@ def show_play_screen(screen,width,height,clock):
             monster.move()
             monster.auto_shoot()
             monster.update_bullets()
+
         
         pygame.display.flip()
         clock.tick(60)
