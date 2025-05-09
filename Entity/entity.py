@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import pygame
 
 class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
-    def __init__(self, x, y, color=(0, 255, 0), radius=30, speed=2, direction="mid"):
+    def __init__(self, x, y, isPlayer, color=(0, 255, 0), radius=30, speed=2, direction="mid"):
         self.x = x
         self.y = y
         self.color = color
@@ -10,6 +10,7 @@ class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
         self.speed = speed
         self.bullets = []
         self.direction = direction
+        self.isPlayer = isPlayer
     
     @abstractmethod
     def draw(self, surface):
@@ -19,10 +20,11 @@ class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
         bullet = bullet_class(
             x=self.x, 
             y=self.y, 
+            isPlayer=self.isPlayer,
             color=(255, 255, 0), 
             radius=5, 
             speed=5,
-            direction=self.direction 
+            direction=self.direction,
         )
         self.bullets.append(bullet)
 
