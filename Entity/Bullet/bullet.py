@@ -7,12 +7,15 @@ class Bullet(Entity):
     def __init__(self, x, y, direction, color=(255, 255, 0), radius=5, speed=3.5):
         super().__init__(x, y, color, radius, speed)
         self.direction = direction
+        if self.direction == "right":
+            self.x += 15
+            self.y += 105
 
     def move(self):
         # Monster
         if self.direction == "right":
-            self.y += self.speed * math.sin(math.radians(44))
-            self.x -= self.speed * math.cos(math.radians(44))
+            self.y += self.speed * math.sin(math.radians(48))
+            self.x -= self.speed * math.cos(math.radians(48))
         elif self.direction == "mid-right":
             self.y += self.speed * math.sin(math.radians(62))
             self.x -= self.speed * math.cos(math.radians(62))
@@ -22,12 +25,12 @@ class Bullet(Entity):
             self.y += self.speed * math.sin(math.radians(62))
             self.x += self.speed * math.cos(math.radians(62))
         elif self.direction == "left":
-            self.y += self.speed * math.sin(math.radians(44))
-            self.x += self.speed * math.cos(math.radians(44))
+            self.y += self.speed * math.sin(math.radians(48))
+            self.x += self.speed * math.cos(math.radians(48))
         # Player
         elif self.direction == Direction.LEFT_PLAYER:
-            self.y -= self.speed * math.sin(math.radians(44))
-            self.x -= self.speed * math.cos(math.radians(44))
+            self.y -= self.speed * math.sin(math.radians(48))
+            self.x -= self.speed * math.cos(math.radians(48))
         elif self.direction == Direction.MID_LEFT_PLAYER:
             self.y -= self.speed * math.sin(math.radians(62))
             self.x -= self.speed * math.cos(math.radians(62))
@@ -37,9 +40,8 @@ class Bullet(Entity):
             self.y -= self.speed * math.sin(math.radians(62))
             self.x += self.speed * math.cos(math.radians(62))
         elif self.direction == Direction.RIGHT_PLAYER:
-            self.y -= self.speed * math.sin(math.radians(44))
-            self.x += self.speed * math.cos(math.radians(44))
-       
+            self.y -= self.speed * math.sin(math.radians(48))
+            self.x += self.speed * math.cos(math.radians(48))
 
     def draw(self, surface):
         pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)

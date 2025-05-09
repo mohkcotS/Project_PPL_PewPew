@@ -11,7 +11,7 @@ class Monster(Entity, ABC):
         self.speed = speed
         self.health = health
         self.last_shot = 0
-        self.shoot_cooldown = random.randint(1000, 4000)
+        self.shoot_cooldown = 2000
         self.direction = direction
 
     @abstractmethod
@@ -21,7 +21,7 @@ class Monster(Entity, ABC):
     def auto_shoot(self):
         current_time = pygame.time.get_ticks()
         if current_time - self.last_shot >= self.shoot_cooldown:
-            if(random.randint(1, 100) < 2):
+            # if(random.randint(1, 100) < 2):
                 self.shootBullet(Bullet)
                 self.last_shot = current_time
 
