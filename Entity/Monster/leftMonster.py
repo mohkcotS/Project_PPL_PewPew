@@ -3,7 +3,7 @@ import pygame
 import math
 
 class LeftMonster(Monster): 
-    def __init__(self, x=100, y=0, direction="left", color=(255, 0, 0)):
+    def __init__(self, x=0, y=0, direction="left", color=(255, 0, 0)):
         super().__init__(x, y, direction, color)  
         self.radius = 100
         avatar = pygame.image.load("src/assets/ship1.png").convert_alpha()

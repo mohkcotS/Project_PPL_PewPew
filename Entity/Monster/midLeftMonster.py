@@ -7,8 +7,8 @@ class MidLeftMonster(Monster):  # Kế thừa class Entity
         super().__init__(x, y, direction, color)  
 
     def move(self):
-        self.y += self.speed * math.sin(math.radians(62))
-        self.x += self.speed * math.cos(math.radians(62))
+        self.y += self.speed * math.sin(math.radians(58))
+        self.x += self.speed * math.cos(math.radians(58))
 
     def draw(self, surface):
         pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
