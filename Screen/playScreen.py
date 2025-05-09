@@ -7,6 +7,7 @@ from Entity.Monster.leftMonster import LeftMonster
 from Entity.Monster.midLeftMonster import MidLeftMonster
 from Controller.keyhandler import KeyHandler
 import random
+from Controller.checkCollision import CheckCollision
 
 def show_play_screen(screen,width,height,clock):
     start_pos = (0, (4/5)*height)
@@ -25,8 +26,15 @@ def show_play_screen(screen,width,height,clock):
     while running:
         current_time = pygame.time.get_ticks()
 
+        for monster in ingame_monster_list:
+            if (CheckCollision(player,monster)):
+                ingame_monster_list.remove(monster)
+            if(CheckCollision(monster,player)):
+                return    
+
         if current_time - last_spawn_time >= spawn_interval:
-            new_monster = random.choice([RightMonster(),MidRightMonster(),MidMonster(),LeftMonster(),MidLeftMonster()])
+            # MidMonster(),RightMonster(),,MidLeftMonster()MidRightMonster(),
+            new_monster = random.choice([LeftMonster()])
             ingame_monster_list.append(new_monster)
             last_spawn_time = current_time
 

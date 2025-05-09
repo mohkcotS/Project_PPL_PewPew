@@ -10,12 +10,15 @@ class Bullet(Entity):
         if self.direction == "right":
             self.x += 15
             self.y += 105
+        elif self.direction =="left":
+            self.x -= 15
+            self.y += 105
 
     def move(self):
         # Monster
         if self.direction == "right":
-            self.y += self.speed * math.sin(math.radians(48))
-            self.x -= self.speed * math.cos(math.radians(48))
+            self.y += self.speed * math.sin(math.radians(43))
+            self.x -= self.speed * math.cos(math.radians(43))
         elif self.direction == "mid-right":
             self.y += self.speed * math.sin(math.radians(62))
             self.x -= self.speed * math.cos(math.radians(62))
@@ -40,8 +43,8 @@ class Bullet(Entity):
             self.y -= self.speed * math.sin(math.radians(62))
             self.x += self.speed * math.cos(math.radians(62))
         elif self.direction == Direction.RIGHT_PLAYER:
-            self.y -= self.speed * math.sin(math.radians(48))
-            self.x += self.speed * math.cos(math.radians(48))
+            self.y -= self.speed * math.sin(math.radians(43))
+            self.x += self.speed * math.cos(math.radians(43))
 
     def draw(self, surface):
         pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
