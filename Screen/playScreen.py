@@ -9,6 +9,9 @@ from Controller.keyhandler import KeyHandler
 import random
 
 def show_play_screen(screen,width,height,clock):
+    background = pygame.image.load("src/assets/Space_Background.png")
+    background = pygame.transform.scale(background, (width, height))
+
     start_pos = (0, (4/5)*height)
     end_pos = (width, (4/5) *height)
     line_color = (255, 255, 255)
@@ -26,7 +29,7 @@ def show_play_screen(screen,width,height,clock):
         current_time = pygame.time.get_ticks()
 
         if current_time - last_spawn_time >= spawn_interval:
-            new_monster = random.choice([RightMonster(),MidRightMonster(),MidMonster(),LeftMonster(),MidLeftMonster()])
+            new_monster = random.choice([RightMonster(),MidRightMonster()])
             ingame_monster_list.append(new_monster)
             last_spawn_time = current_time
 
@@ -36,7 +39,7 @@ def show_play_screen(screen,width,height,clock):
             elif event.type == pygame.KEYDOWN:
                 KeyHandler(event.key,player)
 
-        screen.fill((0, 0, 0))  # nền đen
+        screen.blit(background, (0, 0))
 
         pygame.draw.line(screen, line_color, start_pos, end_pos, line_width)
         player.draw(screen)

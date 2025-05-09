@@ -2,14 +2,20 @@ from Entity.Monster.monster import Monster  # Import class Entity từ entity.py
 import pygame
 import math
 
-class MidRightMonster(Monster):  # Kế thừa class Entity
-    def __init__(self, x=900, y=0, direction="mid-right", color=(255, 255, 0)):
+class MidRightMonster(Monster): 
+    def __init__(self, x=860, y=0, direction="mid-right", color=(255, 255, 0)):
         super().__init__(x, y, direction, color)  
+        self.radius = 100
+        avatar = pygame.image.load("src/assets/ship2.png").convert_alpha()
+        self.avatar = pygame.transform.scale(avatar, (self.radius, self.radius))
 
     def move(self):
-        self.y += self.speed * math.sin(math.radians(62))
-        self.x -= self.speed * math.cos(math.radians(62))
+        self.y += self.speed * math.sin(math.radians(58))
+        self.x -= self.speed * math.cos(math.radians(58))
 
     def draw(self, surface):
-        pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
+        angle = 145
+        rotated_avatar = pygame.transform.rotate(self.avatar, angle)
+        rect = rotated_avatar.get_rect(center=(self.x + self.radius // 2, self.y + self.radius // 2))
+        surface.blit(rotated_avatar, rect.topleft)
         self.draw_bullets(surface)
