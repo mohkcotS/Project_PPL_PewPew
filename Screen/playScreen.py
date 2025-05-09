@@ -37,7 +37,7 @@ def show_play_screen(screen,width,height,clock):
 
         if current_time - last_spawn_time >= spawn_interval:
             # MidMonster(),RightMonster(),,MidLeftMonster()MidRightMonster(),
-            new_monster = random.choice([LeftMonster()])
+            new_monster = random.choice([MidMonster(),RightMonster(),MidLeftMonster(),MidRightMonster(),LeftMonster()])
             ingame_monster_list.append(new_monster)
             last_spawn_time = current_time
 

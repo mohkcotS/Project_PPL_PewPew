@@ -4,9 +4,11 @@ import math
 from  Controller.direction import Direction
 
 class Bullet(Entity):
-    def __init__(self, x, y, direction, color=(255, 255, 0), radius=5, speed=3.5):
-        super().__init__(x, y, color, radius, speed)
+    def __init__(self, x, y, isPlayer, direction, color=(255, 255, 0), radius=5, speed=3.5):
+        super().__init__(x, y, direction, color, radius, speed)
         self.direction = direction
+        self.color = color
+        self.isPlayer = isPlayer
         if self.direction == "right":
             self.x += 15
             self.y += 105
@@ -47,4 +49,8 @@ class Bullet(Entity):
             self.x += self.speed * math.cos(math.radians(43))
 
     def draw(self, surface):
+        if(self.isPlayer == "true"):
+            self.color=(255, 255, 0)
+        else:
+            self.color=(255, 0, 255)
         pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
