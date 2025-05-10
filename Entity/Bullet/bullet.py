@@ -49,10 +49,16 @@ class Bullet(Entity):
         self.rect = self.image.get_rect(center=(x, y))
 
         if self.direction == "right":
-            self.x += 15
+            self.x -= 15
+            self.y += 105
+        elif self.direction == "left":
+            self.x += 107
+            self.y += 105
+        elif self.direction == "mid-left":
+            self.x += 75
             self.y += 105
         elif self.direction == "mid-right":
-            self.x += 12
+            self.x += 10
             self.y += 105
 
     def move(self):
@@ -61,13 +67,13 @@ class Bullet(Entity):
             self.y += self.speed * math.sin(math.radians(43))
             self.x -= self.speed * math.cos(math.radians(43))
         elif self.direction == "mid-right":
-            self.y += self.speed * math.sin(math.radians(58))
-            self.x -= self.speed * math.cos(math.radians(58))
+            self.y += self.speed * math.sin(math.radians(60))
+            self.x -= self.speed * math.cos(math.radians(60))
         elif self.direction == "mid":
             self.y += self.speed
         elif self.direction == "mid-left":
-            self.y += self.speed * math.sin(math.radians(58))
-            self.x += self.speed * math.cos(math.radians(58))
+            self.y += self.speed * math.sin(math.radians(60))
+            self.x += self.speed * math.cos(math.radians(60))
         elif self.direction == "left":
             self.y += self.speed * math.sin(math.radians(43))
             self.x += self.speed * math.cos(math.radians(43))
@@ -76,13 +82,13 @@ class Bullet(Entity):
             self.y -= self.speed * math.sin(math.radians(43))
             self.x -= self.speed * math.cos(math.radians(43))
         elif self.direction == Direction.MID_LEFT_PLAYER:
-            self.y -= self.speed * math.sin(math.radians(58))
-            self.x -= self.speed * math.cos(math.radians(58))
+            self.y -= self.speed * math.sin(math.radians(60))
+            self.x -= self.speed * math.cos(math.radians(60))
         elif self.direction == Direction.MID_PLAYER:
             self.y -= self.speed 
         elif self.direction == Direction.MID_RIGHT_PLAYER:
-            self.y -= self.speed * math.sin(math.radians(58))
-            self.x += self.speed * math.cos(math.radians(58))
+            self.y -= self.speed * math.sin(math.radians(60))
+            self.x += self.speed * math.cos(math.radians(60))
         elif self.direction == Direction.RIGHT_PLAYER:
             self.y -= self.speed * math.sin(math.radians(43))
             self.x += self.speed * math.cos(math.radians(43)) 

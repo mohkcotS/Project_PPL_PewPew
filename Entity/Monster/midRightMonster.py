@@ -3,15 +3,15 @@ import pygame
 import math
 
 class MidRightMonster(Monster): 
-    def __init__(self, x=860, y=0, direction="mid-right", color=(255, 255, 0)):
+    def __init__(self, x=850, y=0, direction="mid-right", color=(255, 255, 0)):
         super().__init__(x, y, direction, color)  
         self.radius = 100
         avatar = pygame.image.load("src/assets/ship2.png").convert_alpha()
         self.avatar = pygame.transform.scale(avatar, (self.radius, self.radius))
 
     def move(self):
-        self.y += self.speed * math.sin(math.radians(58))
-        self.x -= self.speed * math.cos(math.radians(58))
+        self.y += self.speed * math.sin(math.radians(60))
+        self.x -= self.speed * math.cos(math.radians(60))
 
     def draw(self, surface):
         angle = 145

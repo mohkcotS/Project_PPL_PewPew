@@ -4,10 +4,17 @@ import pygame
 class MidMonster(Monster): 
     def __init__(self, x=600, y=0, direction="mid", color=(255, 0, 0)):
         super().__init__(x, y, direction, color)  
+        self.radius = 100
+        avatar = pygame.image.load("src/assets/ship4.png").convert_alpha()
+        self.avatar = pygame.transform.scale(avatar, (self.radius, self.radius))
 
     def move(self):
         self.y += self.speed 
     
     def draw(self, surface):
-        pygame.draw.circle(surface, self.color, (self.x, self.y), self.radius)
+        angle = 180
+        rotated_avatar = pygame.transform.rotate(self.avatar, angle)  # Xoay 180 độ
+        rect = rotated_avatar.get_rect(center=(self.x, self.y))
+        surface.blit(rotated_avatar, rect.topleft)
         self.draw_bullets(surface)
+        
