@@ -18,7 +18,6 @@ direction_angles = {
 }
 
 class Bullet(Entity):
-    # Class-level variables (only loaded once)
     player_bullet_image = None
     monster_bullet_images = []
 
@@ -32,7 +31,7 @@ class Bullet(Entity):
             ]
 
     def __init__(self, x, y, isPlayer, direction, color=(255, 255, 0), radius=5, speed=2.5):
-        Bullet.load_images()  # Ensure images are loaded
+        Bullet.load_images()
 
         super().__init__(x, y, direction, color, radius, speed)
         self.direction = direction
