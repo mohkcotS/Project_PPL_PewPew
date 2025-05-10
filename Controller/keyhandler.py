@@ -2,19 +2,24 @@ from Controller.direction import Direction
 from Entity.Bullet.bullet import Bullet
 import pygame
 
-def KeyHandler(inputKey,player):
-    if inputKey == pygame.K_a:  # Nhấn Enter để Player bắn
+def KeyHandler(command, player):
+    """Handle commands entered through the command box."""
+    if not command:
+        return  # Không xử lý nếu lệnh rỗng
+
+    command = command.lower()  # Chuyển thành chữ thường để dễ so sánh
+    if command == "a":
         player.direction = Direction.LEFT_PLAYER
         player.shootBullet(Bullet)
-    elif inputKey == pygame.K_s:  # Nhấn Enter để Player bắn
+    elif command == "s":
         player.direction = Direction.MID_LEFT_PLAYER
         player.shootBullet(Bullet)
-    elif inputKey == pygame.K_d:  # Nhấn Enter để Player bắn
+    elif command == "d":
         player.direction = Direction.MID_PLAYER
         player.shootBullet(Bullet)
-    elif inputKey == pygame.K_f:  # Nhấn Enter để Player bắn
+    elif command == "f":
         player.direction = Direction.MID_RIGHT_PLAYER
         player.shootBullet(Bullet)
-    elif inputKey == pygame.K_g:  # Nhấn Enter để Player bắn
+    elif command == "g":
         player.direction = Direction.RIGHT_PLAYER
         player.shootBullet(Bullet)
