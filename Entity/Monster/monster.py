@@ -5,7 +5,7 @@ from Entity.Bullet.bullet import Bullet
 
 
 class Monster(Entity, ABC): 
-    def __init__(self, x, y, direction, color=(255, 0, 0), radius=30, speed=1, health=100, isPlayer="false"):
+    def __init__(self, x, y, direction, color=(255, 0, 0), radius=30, speed=0.2, health=100, isPlayer="false"):
         super().__init__(x, y, color)
         self.radius = radius
         self.speed = speed
