@@ -5,43 +5,54 @@ class CommandBox:
         self.screen = screen
         self.width = width
         self.height = height
-        self.y_position = y_position  # Vị trí y của khung chat (dưới đường kẻ ngang)
+        self.y_position = y_position
 
-        self.CHAT_HEIGHT = 50
-        self.CHAT_WIDTH = width // 3  # Chiếm 1/3 chiều rộng màn hình (chính giữa)
+        self.CHAT_HEIGHT = 48
+        self.CHAT_WIDTH = width // 2.5
+
         self.chat_frame = pygame.Rect((width - self.CHAT_WIDTH) // 2, self.y_position, self.CHAT_WIDTH, self.CHAT_HEIGHT)
-        print(f"y_position: {self.y_position}, chat_frame: {self.chat_frame}")
-        self.chat_color = (100, 100, 100)  # Màu xám
-        self.font = pygame.font.Font(None, 36)
+
+        self.chat_color = (24, 45, 47)          #BACKGROUND FRAME
+        self.border_color = (80, 140, 150)       #BORDER COLOR
+        self.text_color = (64, 255, 209)         #TEXT COLOR
+
+        self.font = pygame.font.Font(None, 28) 
+
         self.input_text = ""
+        self.cursor_visible = True
+        self.last_cursor_toggle = pygame.time.get_ticks()
+        
+        # CURSOR TEXT TIME
+        self.cursor_interval = 500  # ms
 
     def handle_input(self, event):
-        """Handle keyboard input for the command box."""
+        # HANDLE INPUT FROM KEYBOARD
         if event.type == pygame.TEXTINPUT:
-                self.input_text += event.text  # Thêm ký tự vào input_text
-                print("Text input:", event.text)
-                return None
-
-        if event.type == pygame.KEYDOWN:
-            print("Key pressed:", pygame.key.name(event.key))
+            self.input_text += event.text
+        # HANDLE 'ENTER' AND 'BACKSPACE'
+        elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                command = self.input_text.strip()  # Lấy lệnh và loại bỏ khoảng trắng thừa
-                self.input_text = ""  # Xóa nội dung sau khi nhấn Enter
-                return command 
+                command = self.input_text.strip()
+                self.input_text = ""
+                return command
             elif event.key == pygame.K_BACKSPACE:
-                self.input_text = self.input_text[:-1]  # Xóa ký tự cuối cùng
-            return None
+                self.input_text = self.input_text[:-1]
+        return None
 
     def draw(self):
-        """Draw the command box and its text on the screen."""
+        now = pygame.time.get_ticks()
+        if now - self.last_cursor_toggle >= self.cursor_interval:
+            self.cursor_visible = not self.cursor_visible
+            self.last_cursor_toggle = now
+
+        # BORDER
+        shadow_rect = self.chat_frame.inflate(8, 8)
+        pygame.draw.rect(self.screen, self.border_color, shadow_rect)
+
+        # BACKGROUND
         pygame.draw.rect(self.screen, self.chat_color, self.chat_frame)
-        # text_surface = self.font.render(self.input_text, True, (255, 255, 255))
-        # text_position = (self.chat_frame.x + 5, self.chat_frame.y + 5)
-        # self.screen.blit(text_surface, text_position)
-        if self.input_text:
-            text_surface = self.font.render(self.input_text, True, (255, 255, 255))
-            text_position = (self.chat_frame.x + 5, self.chat_frame.y + 5)
-            self.screen.blit(text_surface, text_position)
-            print(f"Drawing text '{self.input_text}' at {text_position}")
-        else:
-            print("No text to draw")
+
+        # TEXT
+        display_text = self.input_text + ("|" if self.cursor_visible else "")
+        text_surface = self.font.render(display_text, True, self.text_color)
+        self.screen.blit(text_surface, (self.chat_frame.x + 12, self.chat_frame.y + 12))
