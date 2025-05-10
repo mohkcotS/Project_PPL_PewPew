@@ -3,7 +3,7 @@ import pygame
 import math
 
 class MidLeftMonster(Monster):  # Kế thừa class Entity
-    def __init__(self, x=300, y=0, direction="mid-left", color=(255, 255, 0)):
+    def __init__(self, x=280, y=0, direction="mid-left", color=(255, 255, 0)):
         super().__init__(x, y, direction, color)  
 
     def move(self):

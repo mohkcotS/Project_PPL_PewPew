@@ -23,7 +23,6 @@ class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
             isPlayer=self.isPlayer,
             color=(255, 255, 0), 
             radius=5, 
-            speed=5,
             direction=self.direction,
         )
         self.bullets.append(bullet)
