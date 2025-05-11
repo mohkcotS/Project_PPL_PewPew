@@ -6,9 +6,9 @@ from antlr4 import *
 
 # Define your variables
 DIR = os.path.dirname(__file__)
-ANTLR_JAR = 'C:/Program Files/ANTLR/antlr4-4.9.2-complete.jar'
+ANTLR_JAR = 'D:\\Download\\antlr4-4.9.2-complete.jar'
 CPL_Dest = 'CompiledFiles'
-SRC = 'Sample.g4'
+SRC = 'GameGrammar.g4'
 TESTS = os.path.join(DIR, './tests')
 
 
@@ -29,8 +29,8 @@ def generateAntlr2Python():
 def runTest():
     print('Running testcases...')
     
-    from CompiledFiles.SampleLexer import SampleLexer
-    from CompiledFiles.SampleParser import SampleParser
+    from CompiledFiles.GameGrammarLexer import GameGrammarLexer
+    from CompiledFiles.GameGrammarParser import GameGrammarParser
     from antlr4.error.ErrorListener import ErrorListener
 
     class CustomErrorListener(ErrorListener):
@@ -43,9 +43,9 @@ def runTest():
 
     # test
     input_stream = FileStream(inputFile)
-    lexer = SampleLexer(input_stream)
+    lexer = GameGrammarLexer(input_stream)
     stream = CommonTokenStream(lexer)
-    parser = SampleParser(stream)
+    parser = GameGrammarParser(stream)
     tree = parser.program()  # Start parsing at the `program` rule
 
     # Print the parse tree (for debugging)
@@ -54,10 +54,10 @@ def runTest():
 
     
     # Reset the input stream for parsing and catch the error
-    lexer = SampleLexer(FileStream(inputFile))
+    lexer = GameGrammarLexer(FileStream(inputFile))
     token_stream = CommonTokenStream(lexer)
 
-    parser = SampleParser(token_stream)   
+    parser = GameGrammarParser(token_stream)   
     parser.removeErrorListeners()
     parser.addErrorListener(CustomErrorListener())    
     try:
