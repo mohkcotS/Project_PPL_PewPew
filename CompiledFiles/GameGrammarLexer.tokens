@@ -1,0 +1,15 @@
+DEFEND=1
+USE=2
+COLLECT=3
+ATTACK=4
+DIRECTION=5
+SKILL=6
+HEAL=7
+BUFF=8
+ID=9
+WS=10
+'defend'=1
+'use'=2
+'collect'=3
+'attack'=4
+'heal'=7
