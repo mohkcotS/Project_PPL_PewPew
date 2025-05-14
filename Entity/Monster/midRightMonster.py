@@ -18,4 +18,9 @@ class MidRightMonster(Monster):
         rotated_avatar = pygame.transform.rotate(self.avatar, angle)
         rect = rotated_avatar.get_rect(center=(self.x + self.radius // 2, self.y + self.radius // 2))
         surface.blit(rotated_avatar, rect.topleft)
+
+        text = self.font.render(self.name, True, (255, 255, 255))
+        text_rect = text.get_rect(center=(self.x + self.radius/2, self.y + self.radius + 10))
+        surface.blit(text, text_rect)
+        
         self.draw_bullets(surface)
