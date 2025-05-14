@@ -54,8 +54,8 @@ def show_play_screen(screen, width, height, clock):
             if (CheckCollision(player, monster)):
                 print("Player bullet hit by monster!")
                 ingame_monster_list.remove(monster)
-            if (CheckCollision(monster, player)):
-                return    
+            # if (CheckCollision(monster, player)):
+            #     return    
 
         if current_time - last_spawn_time >= spawn_interval:
             # MidMonster(),RightMonster(),,MidLeftMonster()MidRightMonster(),
