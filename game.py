@@ -1,6 +1,9 @@
 import pygame
+import subprocess
 from Screen.startScreen import show_start_screen
 from Screen.playScreen import show_play_screen
+
+subprocess.run(["py", "run.py", "gen"])
 
 pygame.init()
 pygame.display.set_caption("Pew pew")
