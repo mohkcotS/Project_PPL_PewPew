@@ -5,7 +5,7 @@ class MidMonster(Monster):
     def __init__(self, x=600, y=0, direction="mid", color=(255, 0, 0)):
         super().__init__(x, y, direction, color)  
         self.radius = 100
-        avatar = pygame.image.load("src/assets/ship4.png").convert_alpha()
+        avatar = pygame.image.load("src/assets/ship3.png").convert_alpha()
         self.avatar = pygame.transform.scale(avatar, (self.radius, self.radius))
 
     def move(self):
