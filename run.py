@@ -26,46 +26,44 @@ def generateAntlr2Python():
     subprocess.run(['java', '-jar', ANTLR_JAR, '-o', CPL_Dest, '-no-listener', '-Dlanguage=Python3', SRC])
     print('Generate successfully')
 
-def runTest():
+def runTest(command):
     print('Running testcases...')
     
     from CompiledFiles.GameGrammarLexer import GameGrammarLexer
     from CompiledFiles.GameGrammarParser import GameGrammarParser
     from antlr4.error.ErrorListener import ErrorListener
+    from antlr4 import InputStream, CommonTokenStream
 
     class CustomErrorListener(ErrorListener):
         def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
             print(f"Input rejected: {msg}")
-            exit(1)  # Exit the program with an error
+            exit(1)
 
-    filename = '001.txt'
-    inputFile = os.path.join(DIR, './tests', filename)    
-
-    # test
-    input_stream = FileStream(inputFile)
+    # Tạo input stream từ chuỗi command
+    input_stream = InputStream(command)
     lexer = GameGrammarLexer(input_stream)
-    stream = CommonTokenStream(lexer)
-    parser = GameGrammarParser(stream)
-    tree = parser.program()  # Start parsing at the `program` rule
-
-    # Print the parse tree (for debugging)
-    print(tree.toStringTree(recog=parser))
-    # end of test
-
-    
-    # Reset the input stream for parsing and catch the error
-    lexer = GameGrammarLexer(FileStream(inputFile))
     token_stream = CommonTokenStream(lexer)
+    parser = GameGrammarParser(token_stream)
 
-    parser = GameGrammarParser(token_stream)   
+    # In cây parse để debug (tùy chọn)
+    tree = parser.program()
+    print(tree.toStringTree(recog=parser))
+
+    # Thiết lập listener để kiểm tra lỗi
+    lexer = GameGrammarLexer(InputStream(command))  # reset lại input
+    token_stream = CommonTokenStream(lexer)
+    parser = GameGrammarParser(token_stream)
     parser.removeErrorListeners()
-    parser.addErrorListener(CustomErrorListener())    
+    parser.addErrorListener(CustomErrorListener())
+
     try:
         parser.program()
         print("Input accepted")
-    except SystemExit:        
-        pass
-    
+        return 1
+    except SystemExit:
+        # pass
+        return 0
+
     printBreak()
     print('Run tests completely')
 

@@ -7,19 +7,19 @@ def KeyHandler(command, player):
     if not command:
         return  # Không xử lý nếu lệnh rỗng
 
-    command = command.lower()  # Chuyển thành chữ thường để dễ so sánh
-    if command == "a":
+    lastWord = command.strip().split()[-1]
+    if "attack" in command and "left" in command:
         player.direction = Direction.LEFT_PLAYER
-        player.shootBullet(Bullet)
-    elif command == "s":
+        player.shootBullet(Bullet, lastWord)
+    elif "attack" in command and "mleft" in command:
         player.direction = Direction.MID_LEFT_PLAYER
-        player.shootBullet(Bullet)
-    elif command == "d":
+        player.shootBullet(Bullet, lastWord)
+    elif "attack" in command and "mid" in command:
         player.direction = Direction.MID_PLAYER
-        player.shootBullet(Bullet)
-    elif command == "f":
+        player.shootBullet(Bullet, lastWord)
+    elif "attack" in command and "mright" in command:
         player.direction = Direction.MID_RIGHT_PLAYER
-        player.shootBullet(Bullet)
-    elif command == "g":
+        player.shootBullet(Bullet, lastWord)
+    elif "attack" in command and "right" in command:
         player.direction = Direction.RIGHT_PLAYER
-        player.shootBullet(Bullet)
+        player.shootBullet(Bullet, lastWord)

@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import pygame
 
 class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
-    def __init__(self, x, y, isPlayer, color=(0, 255, 0), radius=30, speed=2, direction="mid"):
+    def __init__(self, x, y, isPlayer, name="", color=(0, 255, 0), radius=30, speed=2, direction="mid"):
         self.x = x
         self.y = y
         self.color = color
@@ -11,12 +11,13 @@ class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
         self.bullets = []
         self.direction = direction
         self.isPlayer = isPlayer
+        self.name = name
     
     @abstractmethod
     def draw(self, surface):
         pass  # Lớp con bắt buộc phải override
     
-    def shootBullet(self, bullet_class):
+    def shootBullet(self, bullet_class, name):
         bullet = bullet_class(
             x=self.x, 
             y=self.y, 
@@ -24,6 +25,7 @@ class Entity(ABC):  # Kế thừa từ ABC để thành lớp trừu tượng
             color=(255, 255, 0), 
             radius=5, 
             direction=self.direction,
+            name = name
         )
         self.bullets.append(bullet)
 
