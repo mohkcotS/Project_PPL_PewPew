@@ -25,6 +25,6 @@ SKILL: 'laser' |'freeze';
 HEAL: 'heal';
 BUFF: 'laserP' | 'freezeP';
 
-ID: [A-Za-z]+;
+ID: [A-Za-z0-9]+;
 
 WS : [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines

@@ -30,13 +30,14 @@ class Bullet(Entity):
                 pygame.image.load("src/assets/Bullet/02.png").convert_alpha(),
             ]
 
-    def __init__(self, x, y, isPlayer, direction, color=(255, 255, 0), radius=5, speed=2.5):
+    def __init__(self, x, y, isPlayer, direction, name="", color=(255, 255, 0), radius=5, speed=2.5):
         Bullet.load_images()
 
-        super().__init__(x, y, direction, color, radius, speed)
+        super().__init__(x, y, isPlayer, "",  color, radius, speed, direction)
         self.direction = direction
         self.color = color
         self.isPlayer = isPlayer
+        self.name = name
 
         if self.isPlayer == "true":
             original_image = Bullet.player_bullet_image

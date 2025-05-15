@@ -9,6 +9,7 @@ DIR = os.path.dirname(__file__)
 ANTLR_JAR = 'D:\\Download\\antlr4-4.9.2-complete.jar'
 CPL_Dest = 'CompiledFiles'
 SRC = 'GameGrammar.g4'
+SRC = 'GameGrammar.g4'
 TESTS = os.path.join(DIR, './tests')
 
 
@@ -26,12 +27,15 @@ def generateAntlr2Python():
     subprocess.run(['java', '-jar', ANTLR_JAR, '-o', CPL_Dest, '-no-listener', '-Dlanguage=Python3', SRC])
     print('Generate successfully')
 
-def runTest():
+def runTest(command):
     print('Running testcases...')
     
     from CompiledFiles.GameGrammarLexer import GameGrammarLexer
     from CompiledFiles.GameGrammarParser import GameGrammarParser
+    from CompiledFiles.GameGrammarLexer import GameGrammarLexer
+    from CompiledFiles.GameGrammarParser import GameGrammarParser
     from antlr4.error.ErrorListener import ErrorListener
+    from antlr4 import InputStream, CommonTokenStream
 
     class CustomErrorListener(ErrorListener):
         def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
@@ -59,13 +63,16 @@ def runTest():
 
     parser = GameGrammarParser(token_stream)   
     parser.removeErrorListeners()
-    parser.addErrorListener(CustomErrorListener())    
+    parser.addErrorListener(CustomErrorListener())
+
     try:
         parser.program()
         print("Input accepted")
-    except SystemExit:        
-        pass
-    
+        return 1
+    except SystemExit:
+        # pass
+        return 0
+
     printBreak()
     print('Run tests completely')
 
