@@ -6,8 +6,9 @@ from antlr4 import *
 
 # Define your variables
 DIR = os.path.dirname(__file__)
-ANTLR_JAR = 'C:\\antlr\\antlr4-4.9.2-complete.jar'
+ANTLR_JAR = 'D:\\Download\\antlr4-4.9.2-complete.jar'
 CPL_Dest = 'CompiledFiles'
+SRC = 'GameGrammar.g4'
 SRC = 'GameGrammar.g4'
 TESTS = os.path.join(DIR, './tests')
 
@@ -31,28 +32,36 @@ def runTest(command):
     
     from CompiledFiles.GameGrammarLexer import GameGrammarLexer
     from CompiledFiles.GameGrammarParser import GameGrammarParser
+    from CompiledFiles.GameGrammarLexer import GameGrammarLexer
+    from CompiledFiles.GameGrammarParser import GameGrammarParser
     from antlr4.error.ErrorListener import ErrorListener
     from antlr4 import InputStream, CommonTokenStream
 
     class CustomErrorListener(ErrorListener):
         def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
             print(f"Input rejected: {msg}")
-            exit(1)
+            exit(1)  # Exit the program with an error
 
-    # Tạo input stream từ chuỗi command
-    input_stream = InputStream(command)
+    filename = '001.txt'
+    inputFile = os.path.join(DIR, './tests', filename)    
+
+    # test
+    input_stream = FileStream(inputFile)
     lexer = GameGrammarLexer(input_stream)
-    token_stream = CommonTokenStream(lexer)
-    parser = GameGrammarParser(token_stream)
+    stream = CommonTokenStream(lexer)
+    parser = GameGrammarParser(stream)
+    tree = parser.program()  # Start parsing at the `program` rule
 
-    # In cây parse để debug (tùy chọn)
-    tree = parser.program()
+    # Print the parse tree (for debugging)
     print(tree.toStringTree(recog=parser))
+    # end of test
 
-    # Thiết lập listener để kiểm tra lỗi
-    lexer = GameGrammarLexer(InputStream(command))  # reset lại input
+    
+    # Reset the input stream for parsing and catch the error
+    lexer = GameGrammarLexer(FileStream(inputFile))
     token_stream = CommonTokenStream(lexer)
-    parser = GameGrammarParser(token_stream)
+
+    parser = GameGrammarParser(token_stream)   
     parser.removeErrorListeners()
     parser.addErrorListener(CustomErrorListener())
 
