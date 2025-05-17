@@ -8,8 +8,7 @@ class CommandBox:
         self.y_position = y_position
 
         self.CHAT_HEIGHT = 48
-        self.CHAT_WIDTH = width // 2.5
-
+        self.CHAT_WIDTH = (width // 2.5) * 2 // 3
         self.chat_frame = pygame.Rect((width - self.CHAT_WIDTH) // 2, self.y_position, self.CHAT_WIDTH, self.CHAT_HEIGHT)
 
         self.chat_color = (24, 45, 47)          #BACKGROUND FRAME

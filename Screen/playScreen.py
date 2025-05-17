@@ -6,6 +6,7 @@ from Entity.Monster.midMonster import MidMonster
 from Entity.Monster.leftMonster import LeftMonster
 from Entity.Monster.midLeftMonster import MidLeftMonster
 from GameHUD.CommandBox import CommandBox
+from GameHUD.RulesBox import RulesBox
 import random
 from Controller.checkCollision import CheckCollision
 from Utils.handleEvent import handle_events
@@ -20,6 +21,7 @@ def show_play_screen(screen, width, height, clock):
     line_width = 50
 
     command_box = CommandBox(screen, width, height, (4/5)*height + line_width)
+    rules_box = RulesBox(screen, width, height, (4/5)*height + line_width - 177, command_box.CHAT_WIDTH)
 
     player = Player()
     ingame_monster_list = []
@@ -40,8 +42,8 @@ def show_play_screen(screen, width, height, clock):
         for monster in ingame_monster_list:
             if (CheckCollision(player, monster)):
                 ingame_monster_list.remove(monster)
-            if (CheckCollision(monster, player)):
-                return    
+            # if (CheckCollision(monster, player)):
+            #     return    
 
         if current_time - last_spawn_time >= spawn_interval:
             new_monster = random.choice([MidMonster(),RightMonster(),MidLeftMonster(),MidRightMonster(),LeftMonster()])
@@ -53,6 +55,9 @@ def show_play_screen(screen, width, height, clock):
 
         # COMMAND BOX
         command_box.draw()
+
+        # RULES BOX
+        rules_box.draw()
 
         # PLAYER
         player.draw(screen)
