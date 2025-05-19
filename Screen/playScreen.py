@@ -69,17 +69,17 @@ def show_play_screen(screen, width, height, clock):
         # RULES BOX
         rules_box.draw()
 
-        # PLAYER
-        player.draw(screen)
-        player.update_bullets()
-
         #BUFF
-        for buff in ingame_buff_list[:]:  # lặp bản sao để có thể xóa an toàn
+        for buff in ingame_buff_list[:]: 
             buff.update()
-            if isinstance(buff, BuffLazer) and buff.is_effect and buff.is_expired():
+            if isinstance(buff, (BuffLazer, BuffFreeze)) and buff.is_effect and buff.is_expired():
                 ingame_buff_list.remove(buff)
             else:
                 buff.draw(screen)
+
+        # PLAYER
+        player.draw(screen)
+        player.update_bullets()
         
         # MONSTER
         for monster in ingame_monster_list:

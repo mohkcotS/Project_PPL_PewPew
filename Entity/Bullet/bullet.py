@@ -38,6 +38,7 @@ class Bullet(Entity):
         self.color = color
         self.isPlayer = isPlayer
         self.name = name
+        self.freeze_until = 0
 
         if self.isPlayer == "true":
             original_image = Bullet.player_bullet_image
@@ -63,6 +64,8 @@ class Bullet(Entity):
             self.y += 105
 
     def move(self):
+        if pygame.time.get_ticks() < getattr(self, "freeze_until", 0):
+            return
         # Monster
         if self.direction == "right":
             self.y += self.speed * math.sin(math.radians(43))
