@@ -9,6 +9,8 @@ class MidMonster(Monster):
         self.avatar = pygame.transform.scale(avatar, (self.radius, self.radius))
 
     def move(self):
+        if self.is_frozen_now():
+            return
         self.y += self.speed 
     
     def draw(self, surface):

@@ -6,9 +6,9 @@ from Controller.direction import Direction
 
 direction_angles = {
     "right": 137,
-    "mid-right": 150,
+    "mright": 150,
     "mid": 180,
-    "mid-left": 210,
+    "mleft": 210,
     "left": 223,
     Direction.RIGHT_PLAYER: -43,
     Direction.MID_RIGHT_PLAYER: -30,
@@ -55,10 +55,10 @@ class Bullet(Entity):
         elif self.direction == "left":
             self.x += 107
             self.y += 105
-        elif self.direction == "mid-left":
+        elif self.direction == "mleft":
             self.x += 75
             self.y += 105
-        elif self.direction == "mid-right":
+        elif self.direction == "mright":
             self.x += 10
             self.y += 105
 
@@ -67,12 +67,12 @@ class Bullet(Entity):
         if self.direction == "right":
             self.y += self.speed * math.sin(math.radians(43))
             self.x -= self.speed * math.cos(math.radians(43))
-        elif self.direction == "mid-right":
+        elif self.direction == "mright":
             self.y += self.speed * math.sin(math.radians(60))
             self.x -= self.speed * math.cos(math.radians(60))
         elif self.direction == "mid":
             self.y += self.speed
-        elif self.direction == "mid-left":
+        elif self.direction == "mleft":
             self.y += self.speed * math.sin(math.radians(60))
             self.x += self.speed * math.cos(math.radians(60))
         elif self.direction == "left":

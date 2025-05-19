@@ -3,13 +3,15 @@ import pygame
 import math
 
 class MidLeftMonster(Monster):  # Kế thừa class Entity
-    def __init__(self, x=260, y=0, direction="mid-left", color=(255, 255, 0)):
+    def __init__(self, x=260, y=0, direction="mleft", color=(255, 255, 0)):
         super().__init__(x, y, direction, color)  
         self.radius = 100
         avatar = pygame.image.load("src/assets/ship4.png").convert_alpha()
         self.avatar = pygame.transform.scale(avatar, (self.radius, self.radius))
 
     def move(self):
+        if self.is_frozen_now():
+            return
         self.y += self.speed * math.sin(math.radians(60))
         self.x += self.speed * math.cos(math.radians(60))
 

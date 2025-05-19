@@ -40,7 +40,7 @@ def show_play_screen(screen, width, height, clock):
             if event.type == pygame.QUIT:
                 running = False
             else:
-                handle_events(event, command_box, player,ingame_buff_list)
+                handle_events(event, command_box, player,ingame_buff_list, ingame_monster_list)
 
         for monster in ingame_monster_list:
             if (CheckCollision(player, monster)):
@@ -55,7 +55,7 @@ def show_play_screen(screen, width, height, clock):
             # if (CheckCollision(monster, player)):
                 # return    
 
-        if current_time - last_spawn_time >= spawn_interval:
+        if current_time - last_spawn_time >= spawn_interval and random.random() < 0.5:
             new_monster = random.choice([MidMonster(),RightMonster(),MidLeftMonster(),MidRightMonster(),LeftMonster()])
             ingame_monster_list.append(new_monster)
             last_spawn_time = current_time
@@ -74,9 +74,12 @@ def show_play_screen(screen, width, height, clock):
         player.update_bullets()
 
         #BUFF
-        for buff in ingame_buff_list:
+        for buff in ingame_buff_list[:]:  # lặp bản sao để có thể xóa an toàn
             buff.update()
-            buff.draw(screen)
+            if isinstance(buff, BuffLazer) and buff.is_effect and buff.is_expired():
+                ingame_buff_list.remove(buff)
+            else:
+                buff.draw(screen)
         
         # MONSTER
         for monster in ingame_monster_list:
