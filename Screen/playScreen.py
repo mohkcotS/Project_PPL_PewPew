@@ -30,7 +30,7 @@ def show_play_screen(screen, width, height, clock):
     ingame_buff_list = []
 
     spawn_interval = 7000  
-    last_spawn_time = pygame.time.get_ticks() 
+    last_spawn_time = pygame.time.get_ticks() - (spawn_interval - 2000) 
     
     running = True
     while running:
@@ -47,6 +47,8 @@ def show_play_screen(screen, width, height, clock):
                 monster_x, monster_y = monster.x, monster.y
                 direction = monster.direction
                 ingame_monster_list.remove(monster)
+                player.heal_buff += 1
+                print(player.heal_buff)
                 # if random.random() < 0.3:
                 new_buff = random.choice([BuffLazer(monster_x, monster_y, direction), BuffFreeze(monster_x, monster_y, direction)])
                 ingame_buff_list.append(new_buff)
