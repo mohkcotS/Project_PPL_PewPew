@@ -29,7 +29,7 @@ def show_play_screen(screen, width, height, clock):
     ingame_monster_list = []
     ingame_buff_list = []
 
-    spawn_interval = 3000  
+    spawn_interval = 7000  
     last_spawn_time = pygame.time.get_ticks() 
     
     running = True
@@ -40,7 +40,7 @@ def show_play_screen(screen, width, height, clock):
             if event.type == pygame.QUIT:
                 running = False
             else:
-                handle_events(event, command_box, player)
+                handle_events(event, command_box, player,ingame_buff_list)
 
         for monster in ingame_monster_list:
             if (CheckCollision(player, monster)):

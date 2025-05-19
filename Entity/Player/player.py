@@ -10,6 +10,8 @@ class Player(Entity):
         self.current_frame = 0
         self.frame_delay = 5  # Delay between frames (adjust as needed)
         self.frame_counter = 0
+        self.laser_buff = 0
+        self.freeze_buff = 0
 
     def load_gif_frames(self, gif_path):
         pil_gif = Image.open(gif_path)
