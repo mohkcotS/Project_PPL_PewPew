@@ -5,6 +5,8 @@ from Entity.Monster.midRightMonster import MidRightMonster
 from Entity.Monster.midMonster import MidMonster
 from Entity.Monster.leftMonster import LeftMonster
 from Entity.Monster.midLeftMonster import MidLeftMonster
+from Entity.Buffs.buff_Freeze import BuffFreeze
+from Entity.Buffs.buff_Lazer import BuffLazer
 from GameHUD.CommandBox import CommandBox
 from GameHUD.RulesBox import RulesBox
 import random
@@ -25,6 +27,7 @@ def show_play_screen(screen, width, height, clock):
 
     player = Player()
     ingame_monster_list = []
+    ingame_buff_list = []
 
     spawn_interval = 3000  
     last_spawn_time = pygame.time.get_ticks() 
@@ -41,9 +44,14 @@ def show_play_screen(screen, width, height, clock):
 
         for monster in ingame_monster_list:
             if (CheckCollision(player, monster)):
+                monster_x, monster_y = monster.x, monster.y
+                direction = monster.direction
                 ingame_monster_list.remove(monster)
+                # if random.random() < 0.3:
+                new_buff = random.choice([BuffLazer(monster_x, monster_y, direction), BuffFreeze(monster_x, monster_y, direction)])
+                ingame_buff_list.append(new_buff)
             # if (CheckCollision(monster, player)):
-            #     return    
+                # return    
 
         if current_time - last_spawn_time >= spawn_interval:
             new_monster = random.choice([MidMonster(),RightMonster(),MidLeftMonster(),MidRightMonster(),LeftMonster()])
@@ -62,6 +70,11 @@ def show_play_screen(screen, width, height, clock):
         # PLAYER
         player.draw(screen)
         player.update_bullets()
+
+        #BUFF
+        for buff in ingame_buff_list:
+            buff.update()
+            buff.draw(screen)
         
         # MONSTER
         for monster in ingame_monster_list:
