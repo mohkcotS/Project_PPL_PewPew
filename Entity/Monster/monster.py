@@ -12,12 +12,18 @@ class Monster(Entity, ABC):
         self.last_shot = 0
         self.shoot_cooldown = 4000
         self.font = pygame.font.Font(None, 24)
+        self.freeze_until = 0  
+
+    def is_frozen_now(self):
+        return pygame.time.get_ticks() < self.freeze_until
 
     @abstractmethod
     def move(self):
         pass  
 
     def auto_shoot(self):
+        if self.is_frozen_now():
+            return
         current_time = pygame.time.get_ticks()
         if current_time - self.last_shot >= self.shoot_cooldown:
             self.shootBullet(Bullet,self.name)

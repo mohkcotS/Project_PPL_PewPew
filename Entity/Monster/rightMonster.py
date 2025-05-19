@@ -10,6 +10,8 @@ class RightMonster(Monster):
         self.avatar = pygame.transform.scale(avatar, (self.radius, self.radius))
 
     def move(self):
+        if self.is_frozen_now():
+            return
         self.y += self.speed * math.sin(math.radians(43))
         self.x -= self.speed * math.cos(math.radians(43))
     
