@@ -60,14 +60,20 @@ def HandleBuff (command,ingame_buff_list, ingame_monster_list, player) :
                     target_direction = "left"
                 elif "mid" in command:
                     target_direction = "mid"
-
+                
                 if target_direction:
                     player.freeze_buff -= 1
-                    freeze_duration = 5000 
+
+                    freeze_effect = BuffFreeze(player.x, player.y, target_direction, is_effect=True)
+                    ingame_buff_list.append(freeze_effect)
+
+                    freeze_duration = freeze_effect.freeze_duration
                     now = pygame.time.get_ticks()
+
                     for monster in ingame_monster_list:
                         if monster.direction == target_direction:
                             monster.freeze_until = now + freeze_duration
-
+                            for bullet in getattr(monster, "bullets", []):
+                                bullet.freeze_until = now + freeze_duration
     
     print(player.laser_buff, player.freeze_buff)
