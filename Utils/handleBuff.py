@@ -24,8 +24,8 @@ def HandleBuff (command,ingame_buff_list, ingame_monster_list, player) :
             print("do sth")
         else:
             if "laser" in command:
-                if player.laser_buff < 3:
-                    return
+                # if player.laser_buff < 3:
+                #     return
                 
                 target_direction = None
                 if "mleft" in command:
