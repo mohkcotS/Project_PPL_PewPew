@@ -15,15 +15,15 @@ class BuffLazer(Buff):
             self.y -= 470
             if self.direction == "right":
                 self.x += 350
-                self.y += 160
+                self.y += 135
             elif self.direction == "mright":
-                self.x += 240
-                self.y += 80
+                self.x += 250
+                self.y += 85
             elif self.direction == "mleft":
-                self.x -= 230
-                self.y += 80
+                self.x -= 250
+                self.y += 85
             elif self.direction == "left":
-                self.x -= 350
+                self.x -= 330
                 self.y += 160
 
     def is_expired(self):
@@ -46,7 +46,7 @@ class BuffLazer(Buff):
     def get_rotation_angle(self, direction):
         angles = {
             "mid": 0,
-            "mleft": 28,
+            "mleft": 33,
             "left": 46,
             "mright": -33,
             "right": -46,

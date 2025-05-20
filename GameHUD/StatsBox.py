@@ -9,12 +9,12 @@ class StatsBox:
         self.player = player
 
         # Kích thước khung StatsBox (giảm chiều cao)
-        self.STATS_WIDTH = width // 4
-        self.STATS_HEIGHT = 135
+        self.STATS_WIDTH = width // 5 + 50
+        self.STATS_HEIGHT = 120
 
         # Vị trí khung
         command_box_left = (width - command_box_width) // 2
-        self.stats_frame = pygame.Rect(command_box_left - self.STATS_WIDTH - 70, self.y_position - 50, self.STATS_WIDTH, self.STATS_HEIGHT)
+        self.stats_frame = pygame.Rect(command_box_left - self.STATS_WIDTH - 70, self.y_position - 37, self.STATS_WIDTH, self.STATS_HEIGHT)
 
         # Màu sắc và font chữ
         self.stats_color = (24, 45, 47)
@@ -23,7 +23,7 @@ class StatsBox:
         self.font = pygame.font.Font(None, 28)
 
         # Tải hình ảnh cho chiêu thức
-        self.heal_image = pygame.image.load("src/assets/Bullet/02.png")
+        self.heal_image = pygame.image.load("src/assets/Buffs/Heal.png")
         self.laser_image = pygame.image.load("src/assets/Buffs/Laser.png")
         self.freeze_image = pygame.image.load("src/assets/Buffs/Freeze.png")
 
@@ -41,13 +41,13 @@ class StatsBox:
         pygame.draw.rect(self.screen, self.stats_color, self.stats_frame)
 
         # Vẽ điểm số từ player
-        points_text = f"Point: {self.player.score}"
+        points_text = f"Score: {self.player.score}"
         text_surface = self.font.render(points_text, True, self.text_color)
         self.screen.blit(text_surface, (self.stats_frame.x + 20, self.stats_frame.y + 12))
 
         # Khoảng cách ngang giữa các chiêu
-        skill_spacing = self.STATS_WIDTH // 4
-        skill_y_offset = self.stats_frame.y + 70
+        skill_spacing = self.STATS_WIDTH // 3
+        skill_y_offset = self.stats_frame.y + 65
 
         # Heal (bố cục ngang)
         heal_opacity = 1.0 if self.player.heal_buff >= 3 else 0.5

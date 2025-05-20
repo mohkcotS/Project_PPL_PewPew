@@ -4,6 +4,8 @@ def show_instruction_screen(screen, width, height, clock):
     font = pygame.font.SysFont(None, 55)
     title_font = pygame.font.SysFont(None, 40)
     instruction_font = pygame.font.SysFont(None, 30)
+    background = pygame.image.load("src/assets/Space_Background.png")
+    background = pygame.transform.scale(background, (width, height))
 
     color1 = (255, 105, 97)
     color2 = (255, 255, 153)
@@ -55,7 +57,7 @@ def show_instruction_screen(screen, width, height, clock):
     ]
 
     while True:
-        screen.fill((0, 0, 0))  # nền đen
+        screen.blit(background, (0, 0)) # nền đen
 
         # === Section: Instruction Title ===
         y = 40
