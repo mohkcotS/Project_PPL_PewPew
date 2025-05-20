@@ -9,6 +9,7 @@ from Entity.Buffs.buff_Freeze import BuffFreeze
 from Entity.Buffs.buff_Lazer import BuffLazer
 from GameHUD.CommandBox import CommandBox
 from GameHUD.RulesBox import RulesBox
+from GameHUD.StatsBox import StatsBox
 import random
 from Controller.checkCollision import CheckCollision
 from Utils.handleEvent import handle_events
@@ -22,10 +23,12 @@ def show_play_screen(screen, width, height, clock):
 
     line_width = 50
 
+    player = Player()
+
     command_box = CommandBox(screen, width, height, (4/5)*height + line_width)
     rules_box = RulesBox(screen, width, height, (4/5)*height + line_width - 177, command_box.CHAT_WIDTH)
+    stats_box = StatsBox(screen, width, height, (4/5)*height + line_width - 37, command_box.CHAT_WIDTH, player)
 
-    player = Player()
     ingame_monster_list = []
     ingame_buff_list = []
 
@@ -47,6 +50,7 @@ def show_play_screen(screen, width, height, clock):
                 monster_x, monster_y = monster.x, monster.y
                 direction = monster.direction
                 ingame_monster_list.remove(monster)
+                player.score += 1
                 player.heal_buff += 1
                 print(player.heal_buff)
                 # if random.random() < 0.3:
@@ -54,6 +58,15 @@ def show_play_screen(screen, width, height, clock):
                 ingame_buff_list.append(new_buff)
             # if (CheckCollision(monster, player)):
                 # return    
+
+        # Xử lý thu thập buff (Laser và Freeze)
+        for buff in ingame_buff_list[:]:
+            if CheckCollision(player, buff):
+                if isinstance(buff, BuffLazer):
+                    player.laser_buff += 1
+                elif isinstance(buff, BuffFreeze):
+                    player.freeze_buff += 1
+                ingame_buff_list.remove(buff)
 
         if current_time - last_spawn_time >= spawn_interval and random.random() < 0.5:
             new_monster = random.choice([MidMonster(),RightMonster(),MidLeftMonster(),MidRightMonster(),LeftMonster()])
@@ -68,6 +81,9 @@ def show_play_screen(screen, width, height, clock):
 
         # RULES BOX
         rules_box.draw()
+
+        # STATS BOX
+        stats_box.draw()
 
         #BUFF
         for buff in ingame_buff_list[:]: 
