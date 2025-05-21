@@ -4,7 +4,7 @@ from Entity.entity import Entity
 
 class Player(Entity):
     def __init__(self, x=600, y=560, gif_path="src/assets/Player.gif", speed=5, score=0, direction="mid_player"):
-        super().__init__(x, y, "true", (0, 0, 255), 30, speed, direction)
+        super().__init__(x, y, "true", "", (0, 0, 255), 80, speed, direction)
         self.score = score
         self.frames = self.load_gif_frames(gif_path)
         self.current_frame = 0

@@ -32,8 +32,7 @@ class Bullet(Entity):
 
     def __init__(self, x, y, isPlayer, direction, name="", color=(255, 255, 0), radius=5, speed=0.75):
         Bullet.load_images()
-
-        super().__init__(x, y, isPlayer, "",  color, radius, speed, direction)
+        super().__init__(x, y, isPlayer, "",  color, 30, speed, direction)
         self.direction = direction
         self.color = color
         self.isPlayer = isPlayer
