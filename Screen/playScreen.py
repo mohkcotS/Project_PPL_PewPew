@@ -7,6 +7,7 @@ from Entity.Monster.leftMonster import LeftMonster
 from Entity.Monster.midLeftMonster import MidLeftMonster
 from Entity.Buffs.buff_Freeze import BuffFreeze
 from Entity.Buffs.buff_Lazer import BuffLazer
+from Entity.Shield.shield import Shield
 from GameHUD.CommandBox import CommandBox
 from GameHUD.RulesBox import RulesBox
 import random
@@ -28,6 +29,7 @@ def show_play_screen(screen, width, height, clock):
     player = Player()
     ingame_monster_list = []
     ingame_buff_list = []
+    ingame_shield_list = []
 
     spawn_interval = 7000  
     last_spawn_time = pygame.time.get_ticks() - (spawn_interval - 2000) 
@@ -40,7 +42,7 @@ def show_play_screen(screen, width, height, clock):
             if event.type == pygame.QUIT:
                 running = False
             else:
-                handle_events(event, command_box, player,ingame_buff_list, ingame_monster_list)
+                handle_events(event, command_box, player,ingame_buff_list, ingame_monster_list,ingame_shield_list)
 
         for monster in ingame_monster_list:
             if (CheckCollision(player, monster)):
@@ -52,8 +54,14 @@ def show_play_screen(screen, width, height, clock):
                 # if random.random() < 0.3:
                 new_buff = random.choice([BuffLazer(monster_x, monster_y, direction), BuffFreeze(monster_x, monster_y, direction)])
                 ingame_buff_list.append(new_buff)
+
+            for shield in ingame_shield_list:
+                if(CheckCollision(monster,shield)):
+                    ingame_shield_list.remove(shield)
+
             # if (CheckCollision(monster, player)):
-                # return    
+            #     return    
+
 
         if current_time - last_spawn_time >= spawn_interval and random.random() < 0.5:
             new_monster = random.choice([MidMonster(),RightMonster(),MidLeftMonster(),MidRightMonster(),LeftMonster()])
@@ -76,6 +84,11 @@ def show_play_screen(screen, width, height, clock):
                 ingame_buff_list.remove(buff)
             else:
                 buff.draw(screen)
+
+        #SHIELD
+        
+        for shield in ingame_shield_list[:]:
+            shield.draw(screen)
 
         # PLAYER
         player.draw(screen)
