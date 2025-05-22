@@ -47,15 +47,31 @@ def show_direction_screen(screen, width, height, clock):
     player_frame_delay = 4 
     player_frame_counter = 0
 
-    #Bullet
+    # Bullet images
     bullet = pygame.image.load("src/assets/Bullet/02.png")
-    bulletLeft = pygame.transform.rotate(bullet,46)
-    bulletMLeft = pygame.transform.rotate(bullet,33)
-    bulletMid = pygame.transform.rotate(bullet, 0)
-    bulletMRight = pygame.transform.rotate(bullet, -33)
-    bulletRight = pygame.transform.rotate(bullet, -46)
+    bullet_imgs = [
+        pygame.transform.rotate(bullet, 46),
+        pygame.transform.rotate(bullet, 33),
+        pygame.transform.rotate(bullet, 0),
+        pygame.transform.rotate(bullet, -33),
+        pygame.transform.rotate(bullet, -46)
+    ]
 
-    #Enter to continue
+    # Bullet animation setup
+    bullets_info = [
+        {"start": (150, 300), "angle": math.radians(-46)},
+        {"start": (380, 375), "angle": math.radians(-33)},
+        {"start": (580, 450), "angle": math.radians(0)},
+        {"start": (720, 375), "angle": math.radians(33)},
+        {"start": (1000, 300), "angle": math.radians(46)},
+    ]
+    bullet_speed = 2
+    bullet_max_dist = 200
+    for bullet in bullets_info:
+        bullet["pos"] = list(bullet["start"])
+        bullet["traveled"] = 0
+
+    # Enter to continue
     enterText = text_font.render("ENTER", True, (color1))
     arrow_color = color1
     arrow_size = 22 
@@ -76,7 +92,7 @@ def show_direction_screen(screen, width, height, clock):
         screen.blit(mrightDirText, (600 + (600-mrightDirText.get_width())//2, y))
         screen.blit(rightDirText, (1090, y))
 
-        #Player
+        #Player GIF
         player_frame_counter += 1
         if player_frame_counter >= player_frame_delay:
             player_frame_idx = (player_frame_idx + 1) % player_frame_count
@@ -86,14 +102,18 @@ def show_direction_screen(screen, width, height, clock):
 
         screen.blit(playerText, ((width- playerText.get_width())// 2 , 720 ))
 
-        #Bullet
-        screen.blit(bulletLeft, (150 ,300))
-        screen.blit(bulletMLeft, (380 ,375))
-        screen.blit(bulletMid, (580 ,450))
-        screen.blit(bulletMRight, (720 ,375))
-        screen.blit(bulletRight, (1000 ,300))
+        # Bullet animation
+        for i, bullet in enumerate(bullets_info):
+            if bullet["traveled"] < bullet_max_dist:
+                bullet["pos"][0] += bullet_speed * math.sin(bullet["angle"])
+                bullet["pos"][1] -= bullet_speed * math.cos(bullet["angle"])
+                bullet["traveled"] += bullet_speed
+            else:
+                bullet["pos"] = list(bullet["start"])
+                bullet["traveled"] = 0
+            screen.blit(bullet_imgs[i], bullet["pos"])
 
-        #Enter to continue
+        #Enter to continue (oscillate)
         t = pygame.time.get_ticks() / 200  # speed of oscillation
         dx = int(10 * math.sin(t))         # oscillation distance
 
