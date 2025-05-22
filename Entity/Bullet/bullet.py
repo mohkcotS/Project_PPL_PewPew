@@ -24,7 +24,7 @@ class Bullet(Entity):
     @staticmethod
     def load_images():
         if Bullet.player_bullet_image is None:
-            Bullet.player_bullet_image = pygame.image.load("src/assets/Bullet/01.png").convert_alpha()
+            Bullet.player_bullet_image = pygame.image.load("src/assets/Bullet/10.png").convert_alpha()
             Bullet.monster_bullet_images = [
                 pygame.image.load("src/assets/Bullet/01.png").convert_alpha(),
                 pygame.image.load("src/assets/Bullet/02.png").convert_alpha(),

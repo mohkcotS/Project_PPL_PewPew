@@ -27,7 +27,8 @@ def show_direction_screen(screen, width, height, clock):
     background = pygame.image.load("src/assets/Space_Background.png")
     background = pygame.transform.scale(background, (width, height))
 
-    color1 = (103, 232, 249)
+    color1 = (217, 207, 255)	
+    color2 = (103, 232, 249)
 
     instruction_text = pygame.image.load("src/assets/InstructionScreen/instruction.png")
     instruction_text = pygame.transform.scale(instruction_text, (500,500))
@@ -48,7 +49,7 @@ def show_direction_screen(screen, width, height, clock):
     player_frame_counter = 0
 
     # Bullet images
-    bullet = pygame.image.load("src/assets/Bullet/02.png")
+    bullet = pygame.image.load("src/assets/Bullet/10.png")
     bullet_imgs = [
         pygame.transform.rotate(bullet, 46),
         pygame.transform.rotate(bullet, 33),
@@ -61,20 +62,20 @@ def show_direction_screen(screen, width, height, clock):
     bullets_info = [
     {"start": (180, 400), "angle": math.radians(-46), "max_dist": 180},
     {"start": (380, 400), "angle": math.radians(-33), "max_dist": 200},
-    {"start": (580, 450), "angle": math.radians(0),   "max_dist": 220},
+    {"start": (560, 450), "angle": math.radians(0),   "max_dist": 220},
     {"start": (720, 400), "angle": math.radians(33),  "max_dist": 200},
     {"start": (900, 400), "angle": math.radians(46), "max_dist": 180},
 ]
-    bullet_speed = 2
+    bullet_speed = 4
     bullets_reset_time = 0 
-    bullet_max_dist = 200
+    bullet_max_dist = 300
     for bullet in bullets_info:
         bullet["pos"] = list(bullet["start"])
         bullet["traveled"] = 0
 
     # Enter to continue
-    enterText = text_font.render("ENTER", True, (color1))
-    arrow_color = color1
+    enterText = text_font.render("ENTER", True, (color2))
+    arrow_color = color2
     arrow_size = 22 
     arrow_gap = 8  
 
