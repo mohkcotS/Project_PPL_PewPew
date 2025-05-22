@@ -18,15 +18,15 @@ class RulesBox:
         self.rules_color = (24, 45, 47)  # BACKGROUND FRAME
         self.border_color = (80, 140, 150)  # BORDER COLOR
         self.text_color = (255,255,255)  # TEXT COLOR
-        self.font = pygame.font.Font(None, 24)
+        self.font = pygame.font.Font("src/assets/font/SpaceMonoR.ttf", 13)
 
         # Game rules
         self.rules = [
             "Available direction:",
-            "• left,  mleft,  mid,  mright,  right",
+            "• left, mleft, mid, mright, right",
             "",
             "Available buff and buff piece:",
-            "• laser,  freeze,  laserP,  freezeP",
+            "• laser, freeze, laserP, freezeP",
             "",
             "Available commands:",
             "• attack <direction> <ID>",

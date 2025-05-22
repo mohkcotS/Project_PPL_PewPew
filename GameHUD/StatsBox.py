@@ -20,7 +20,7 @@ class StatsBox:
         self.stats_color = (24, 45, 47)
         self.border_color = (80, 140, 150)
         self.text_color = (255, 255, 255)
-        self.font = pygame.font.Font(None, 28)
+        self.font = pygame.font.Font("src/assets/font/m5x7.ttf", 28)
 
         # Tải hình ảnh cho chiêu thức
         self.heal_image = pygame.image.load("src/assets/Buffs/Heal.png")
