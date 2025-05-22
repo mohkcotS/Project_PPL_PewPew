@@ -59,13 +59,14 @@ def show_direction_screen(screen, width, height, clock):
 
     # Bullet animation setup
     bullets_info = [
-        {"start": (150, 300), "angle": math.radians(-46)},
-        {"start": (380, 375), "angle": math.radians(-33)},
-        {"start": (580, 450), "angle": math.radians(0)},
-        {"start": (720, 375), "angle": math.radians(33)},
-        {"start": (1000, 300), "angle": math.radians(46)},
-    ]
+    {"start": (180, 400), "angle": math.radians(-46), "max_dist": 180},
+    {"start": (380, 400), "angle": math.radians(-33), "max_dist": 200},
+    {"start": (580, 450), "angle": math.radians(0),   "max_dist": 220},
+    {"start": (720, 400), "angle": math.radians(33),  "max_dist": 200},
+    {"start": (900, 400), "angle": math.radians(46), "max_dist": 180},
+]
     bullet_speed = 2
+    bullets_reset_time = 0 
     bullet_max_dist = 200
     for bullet in bullets_info:
         bullet["pos"] = list(bullet["start"])
@@ -103,15 +104,27 @@ def show_direction_screen(screen, width, height, clock):
         screen.blit(playerText, ((width- playerText.get_width())// 2 , 720 ))
 
         # Bullet animation
-        for i, bullet in enumerate(bullets_info):
-            if bullet["traveled"] < bullet_max_dist:
-                bullet["pos"][0] += bullet_speed * math.sin(bullet["angle"])
-                bullet["pos"][1] -= bullet_speed * math.cos(bullet["angle"])
-                bullet["traveled"] += bullet_speed
-            else:
-                bullet["pos"] = list(bullet["start"])
-                bullet["traveled"] = 0
-            screen.blit(bullet_imgs[i], bullet["pos"])
+        now = pygame.time.get_ticks()
+            #delay
+        if bullets_reset_time and now < bullets_reset_time:
+            pass
+        else:
+            #not delay
+            if bullets_reset_time and now >= bullets_reset_time:
+                for bullet in bullets_info:
+                    bullet["pos"] = list(bullet["start"])
+                    bullet["traveled"] = 0
+                bullets_reset_time = 0
+
+            for i, bullet in enumerate(bullets_info):
+                if bullet["traveled"] < bullet["max_dist"]:
+                    bullet["pos"][0] += bullet_speed * math.sin(bullet["angle"])
+                    bullet["pos"][1] -= bullet_speed * math.cos(bullet["angle"])
+                    bullet["traveled"] += bullet_speed
+                    screen.blit(bullet_imgs[i], bullet["pos"])
+                else:
+                    bullets_reset_time = now + 500
+                    break
 
         #Enter to continue (oscillate)
         t = pygame.time.get_ticks() / 200  # speed of oscillation
