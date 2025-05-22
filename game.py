@@ -2,7 +2,7 @@ import pygame
 import subprocess
 from Screen.startScreen import show_start_screen
 from Screen.playScreen import show_play_screen
-from Screen.dirInsScreen import show_direction_screen
+from Screen.instructionScreen import show_instruction_screen
 
 import sys
 subprocess.run([sys.executable, "run.py", "gen"])
@@ -16,7 +16,7 @@ height = 800
 screen = pygame.display.set_mode((width, height))
 
 show_start_screen(screen,width,height,clock)      
-show_direction_screen(screen,width,height,clock)      
+show_instruction_screen(screen,width,height,clock)      
 show_play_screen(screen,width,height,clock)
 
 pygame.quit()
