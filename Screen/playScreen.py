@@ -11,6 +11,7 @@ from Entity.Shield.shield import Shield
 from GameHUD.CommandBox import CommandBox
 from GameHUD.RulesBox import RulesBox
 from GameHUD.StatsBox import StatsBox
+from GameHUD.HealthBar import HealthBar
 import random
 from Controller.checkCollision import CheckCollision
 from Utils.handleEvent import handle_events
@@ -25,6 +26,11 @@ def show_play_screen(screen, width, height, clock):
     line_width = 50
 
     player = Player()
+
+    # Position the health bar
+    health_bar_x = player.x - 75  # Center the health bar (150 width / 2)
+    health_bar_y = player.y + 90  # Below the player
+    health_bar = HealthBar(screen, width, height, health_bar_x, health_bar_y, player)
 
     command_box = CommandBox(screen, width, height, (4/5)*height + line_width)
     rules_box = RulesBox(screen, width, height, (4/5)*height + line_width - 177, command_box.CHAT_WIDTH)
@@ -45,29 +51,42 @@ def show_play_screen(screen, width, height, clock):
             if event.type == pygame.QUIT:
                 running = False
             else:
-                handle_events(event, command_box, player,ingame_buff_list, ingame_monster_list,ingame_shield_list)
+                command = handle_events(event, command_box, player, ingame_buff_list, ingame_monster_list, ingame_shield_list)
+                # Check if the player uses the heal command
+                if command and "use heal" in command.lower():
+                    health_bar.heal()
 
+        # Check collision between player's bullets and monsters
         for monster in ingame_monster_list:
-            if (CheckCollision(player, monster)):
+            if CheckCollision(player, monster):
                 monster_x, monster_y = monster.x, monster.y
                 direction = monster.direction
                 ingame_monster_list.remove(monster)
                 player.score += 1
                 player.heal_buff += 1
                 print(player.heal_buff)
-                # if random.random() < 0.3:
-                new_buff = random.choice([BuffLazer(monster_x, monster_y, direction), BuffFreeze(monster_x, monster_y, direction)])
-                ingame_buff_list.append(new_buff)
+                if random.random() < 0.3:
+                    new_buff = random.choice([BuffLazer(monster_x, monster_y, direction), BuffFreeze(monster_x, monster_y, direction)])
+                    ingame_buff_list.append(new_buff)
 
+            # Check collision between monster's bullets and player
+            for bullet in monster.bullets[:]:
+                if CheckCollision(bullet, player):
+                    print("bullet hit player")  # Debug
+                    health_bar.take_damage()
+                    monster.bullets.remove(bullet)
+                    if health_bar.health <= 0:
+                        running = False
+            
+            # Check collision between monster and shield
             for shield in ingame_shield_list:
-                if(CheckCollision(monster,shield)):
+                if CheckCollision(monster, shield):
                     ingame_shield_list.remove(shield)
-
+            
             # if (CheckCollision(monster, player)):
             #     return    
 
-
-        # Xử lý thu thập buff (Laser và Freeze)
+        # Handle buff collection (Laser and Freeze)
         for buff in ingame_buff_list[:]:
             if CheckCollision(player, buff):
                 if isinstance(buff, BuffLazer):
@@ -76,11 +95,11 @@ def show_play_screen(screen, width, height, clock):
                     player.freeze_buff += 1
                 ingame_buff_list.remove(buff)
 
+        # Spawn new monsters
         if current_time - last_spawn_time >= spawn_interval and random.random() < 0.5:
-            new_monster = random.choice([MidMonster(),RightMonster(),MidLeftMonster(),MidRightMonster(),LeftMonster()])
+            new_monster = random.choice([MidMonster(), RightMonster(), MidLeftMonster(), MidRightMonster(), LeftMonster()])
             ingame_monster_list.append(new_monster)
             last_spawn_time = current_time
-
 
         screen.blit(background, (0, 0))
 
@@ -93,7 +112,10 @@ def show_play_screen(screen, width, height, clock):
         # STATS BOX
         stats_box.draw()
 
-        #BUFF
+        # Health Bar
+        health_bar.draw()
+
+        # BUFF
         for buff in ingame_buff_list[:]: 
             buff.update()
             if isinstance(buff, (BuffLazer, BuffFreeze)) and buff.is_effect and buff.is_expired():
@@ -101,8 +123,7 @@ def show_play_screen(screen, width, height, clock):
             else:
                 buff.draw(screen)
 
-        #SHIELD
-        
+        # SHIELD        
         for shield in ingame_shield_list[:]:
             shield.draw(screen)
 
