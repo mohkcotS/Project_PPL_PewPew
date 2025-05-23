@@ -78,13 +78,18 @@ def show_play_screen(screen, width, height, clock):
                     if health_bar.health <= 0:
                         running = False
             
-            # Check collision between monster and shield
-            for shield in ingame_shield_list:
-                if CheckCollision(monster, shield):
-                    ingame_shield_list.remove(shield)
+            # Check collision between monster's bullets and shield
+            for shield in ingame_shield_list[:]:
+                for bullet in monster.bullets[:]:
+                    if CheckCollision(bullet, shield):
+                        monster.bullets.remove(bullet)
+                        ingame_shield_list.remove(shield)
+                        break  # Bullet is removed, no need to check further shields for this bullet
             
-            # if (CheckCollision(monster, player)):
-            #     return    
+            # Check collision between monster and shield (direct collision)
+            for shield in ingame_shield_list[:]:
+                if CheckCollision(monster, shield):
+                    ingame_shield_list.remove(shield) 
 
         # Handle buff collection (Laser and Freeze)
         for buff in ingame_buff_list[:]:
