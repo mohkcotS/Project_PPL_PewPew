@@ -34,7 +34,7 @@ def show_play_screen(screen, width, height, clock):
     ingame_buff_list = []
     ingame_shield_list = []
 
-    spawn_interval = 7000  
+    spawn_interval = 8500  
     last_spawn_time = pygame.time.get_ticks() - (spawn_interval - 2000) 
     
     running = True

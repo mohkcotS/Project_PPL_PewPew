@@ -7,7 +7,7 @@ def HandleBuff (command,ingame_buff_list, ingame_monster_list, player) :
     if(not command):
         return
     if "collect" in command:
-        if "laserP" in command:
+        if "laserp" in command:
             player.laser_buff += 1
             for buff in ingame_buff_list:
                 if isinstance(buff, BuffLazer):
