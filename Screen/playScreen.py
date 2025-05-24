@@ -51,47 +51,29 @@ def show_play_screen(screen, width, height, clock):
             if event.type == pygame.QUIT:
                 running = False
             else:
-                command = handle_events(event, command_box, player, ingame_buff_list, ingame_monster_list, ingame_shield_list)
-                # Check if the player uses the heal command
-                if command and "use heal" in command.lower():
-                    health_bar.heal()
+                handle_events(event, command_box, player,ingame_buff_list, ingame_monster_list,ingame_shield_list)
 
-        # Check collision between player's bullets and monsters
         for monster in ingame_monster_list:
-            if CheckCollision(player, monster):
+            if (CheckCollision(player, monster)):
                 monster_x, monster_y = monster.x, monster.y
                 direction = monster.direction
                 ingame_monster_list.remove(monster)
                 player.score += 1
                 player.heal_buff += 1
                 print(player.heal_buff)
-                if random.random() < 0.3:
-                    new_buff = random.choice([BuffLazer(monster_x, monster_y, direction), BuffFreeze(monster_x, monster_y, direction)])
-                    ingame_buff_list.append(new_buff)
+                # if random.random() < 0.3:
+                new_buff = random.choice([BuffLazer(monster_x, monster_y, direction), BuffFreeze(monster_x, monster_y, direction)])
+                ingame_buff_list.append(new_buff)
 
-            # Check collision between monster's bullets and player
-            for bullet in monster.bullets[:]:
-                if CheckCollision(bullet, player):
-                    print("bullet hit player")  # Debug
-                    health_bar.take_damage()
-                    monster.bullets.remove(bullet)
-                    if health_bar.health <= 0:
-                        running = False
-            
-            # Check collision between monster's bullets and shield
-            for shield in ingame_shield_list[:]:
-                for bullet in monster.bullets[:]:
-                    if CheckCollision(bullet, shield):
-                        monster.bullets.remove(bullet)
-                        ingame_shield_list.remove(shield)
-                        break  # Bullet is removed, no need to check further shields for this bullet
-            
-            # Check collision between monster and shield (direct collision)
-            for shield in ingame_shield_list[:]:
-                if CheckCollision(monster, shield):
-                    ingame_shield_list.remove(shield) 
+            for shield in ingame_shield_list:
+                if(CheckCollision(monster,shield)):
+                    ingame_shield_list.remove(shield)
 
-        # Handle buff collection (Laser and Freeze)
+            if (CheckCollision(monster, player)):
+                return    
+
+
+        # Xử lý thu thập buff (Laser và Freeze)
         for buff in ingame_buff_list[:]:
             if CheckCollision(player, buff):
                 if isinstance(buff, BuffLazer):
@@ -100,11 +82,11 @@ def show_play_screen(screen, width, height, clock):
                     player.freeze_buff += 1
                 ingame_buff_list.remove(buff)
 
-        # Spawn new monsters
         if current_time - last_spawn_time >= spawn_interval and random.random() < 0.5:
-            new_monster = random.choice([MidMonster(), RightMonster(), MidLeftMonster(), MidRightMonster(), LeftMonster()])
+            new_monster = random.choice([MidMonster(),RightMonster(),MidLeftMonster(),MidRightMonster(),LeftMonster()])
             ingame_monster_list.append(new_monster)
             last_spawn_time = current_time
+
 
         screen.blit(background, (0, 0))
 

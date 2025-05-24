@@ -13,6 +13,7 @@ class Player(Entity):
         self.laser_buff = 0
         self.freeze_buff = 0
         self.heal_buff = 0
+        self.health = 3
 
     def load_gif_frames(self, gif_path):
         pil_gif = Image.open(gif_path)

@@ -38,7 +38,6 @@ class Bullet(Entity):
         self.isPlayer = isPlayer
         self.name = name
         self.freeze_until = 0
-        self.is_bullet = True
 
         if self.isPlayer == "true":
             original_image = Bullet.player_bullet_image
