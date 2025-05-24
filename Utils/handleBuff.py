@@ -21,7 +21,9 @@ def HandleBuff (command,ingame_buff_list, ingame_monster_list, player) :
                     break
     elif "use" in command:
         if "heal" in command:
-            print("do sth")
+            if player.health < 3:
+                player.health += 1
+                player.heal_buff -= 3
         else:
             if "laser" in command:
                 # if player.laser_buff < 3:
@@ -40,7 +42,9 @@ def HandleBuff (command,ingame_buff_list, ingame_monster_list, player) :
                     target_direction = "mid"
                 
                 if target_direction:
-                    player.laser_buff -= 1
+                    player.laser_buff -= 3
+                    monster_killed = len([m for m in ingame_monster_list if m.direction == target_direction])
+                    player.heal_buff += monster_killed
                     ingame_monster_list[:] = [m for m in ingame_monster_list if m.direction != target_direction]
                     laser_effect = BuffLazer(player.x, player.y, target_direction, is_effect=True)
                     ingame_buff_list.append(laser_effect)

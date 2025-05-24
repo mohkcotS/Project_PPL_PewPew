@@ -10,7 +10,7 @@ class Monster(Entity, ABC):
         super().__init__(x, y, isPlayer, RandomName() ,color, radius, speed, direction)
         self.health = health
         self.last_shot = 0
-        self.shoot_cooldown = 4000
+        self.shoot_cooldown = 8000
         self.font = pygame.font.Font(None, 24)
         self.freeze_until = 0  
 
