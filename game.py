@@ -20,4 +20,3 @@ show_instruction_screen(screen,width,height,clock)
 show_play_screen(screen,width,height,clock)
 
 pygame.quit()
-

@@ -44,6 +44,10 @@ def show_play_screen(screen, width, height, clock):
     last_spawn_time = pygame.time.get_ticks() - (spawn_interval - 2000) 
     gameover = False
     
+
+
+    display_score = 0
+    was_gameover = False 
     running = True
     while running:
         current_time = pygame.time.get_ticks()
@@ -61,7 +65,6 @@ def show_play_screen(screen, width, height, clock):
                 ingame_monster_list.remove(monster)
                 player.score += 1
                 player.heal_buff += 1
-                print(player.heal_buff)
                 # if random.random() < 0.3:
                 new_buff = random.choice([BuffLazer(monster_x, monster_y, direction), BuffFreeze(monster_x, monster_y, direction)])
                 ingame_buff_list.append(new_buff)
@@ -131,15 +134,30 @@ def show_play_screen(screen, width, height, clock):
                 monster.auto_shoot()
                 monster.update_bullets()
 
+        if gameover and not was_gameover:
+            display_score = 0
+            was_gameover = True
+        elif not gameover:
+            was_gameover = False
+        
+        if gameover:
+                if display_score < player.score:
+                    display_score += max(1, (player.score // 60))
+                    if display_score > player.score:
+                        display_score = player.score
+
         if(gameover == True):
             overlay = pygame.Surface((width, height), pygame.SRCALPHA)
-            overlay.fill((0, 0, 0, 100))  
+            overlay.fill((0, 0, 0, 180))  
             screen.blit(overlay, (0, 0))
 
-            font = pygame.font.SysFont(None, 48) 
-            score_text = font.render("YOUR SCORE: " + str(player.score), True, (255, 255, 255))  
+            font = pygame.font.Font("src/assets/font/SpaceMonoB.ttf", 28) 
+            score_text = font.render("YOUR SCORE: " + str(display_score), True, (255, 255, 255)) 
+            game_over = pygame.image.load("src/assets/defeat/game-over.png")
+            game_over = pygame.transform.scale(game_over, (600, 400))
+            screen.blit(game_over, ((width - game_over.get_width()) // 2, (height - game_over.get_height() - 200) // 2))
 
-            screen.blit(score_text, ((width - score_text.get_width()) // 2, 400))
+            screen.blit(score_text, ((width - score_text.get_width()) // 2, 450))
 
         pygame.display.flip()
         clock.tick(60)

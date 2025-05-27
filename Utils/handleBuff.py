@@ -2,6 +2,7 @@ from Entity.Buffs.buff_Freeze import BuffFreeze
 from Entity.Buffs.buff_Lazer import BuffLazer
 from Controller.direction import Direction 
 import pygame
+import random
 
 def HandleBuff (command,ingame_buff_list, ingame_monster_list, player) :
     if(not command):
@@ -43,9 +44,22 @@ def HandleBuff (command,ingame_buff_list, ingame_monster_list, player) :
                 
                 if target_direction:
                     player.laser_buff -= 3
-                    monster_killed = len([m for m in ingame_monster_list if m.direction == target_direction])
+                    
+                    monsters_to_remove = [m for m in ingame_monster_list if m.direction == target_direction]
+                    monster_killed = len(monsters_to_remove)
                     player.heal_buff += monster_killed
+                    player.score += monster_killed
+
+                    for monster in monsters_to_remove:
+                        # if random.random() < 0.3: 
+                            new_buff = random.choice([
+                                BuffLazer(monster.x, monster.y, monster.direction),
+                                BuffFreeze(monster.x, monster.y, monster.direction)
+                            ])
+                            ingame_buff_list.append(new_buff)
+
                     ingame_monster_list[:] = [m for m in ingame_monster_list if m.direction != target_direction]
+
                     laser_effect = BuffLazer(player.x, player.y, target_direction, is_effect=True)
                     ingame_buff_list.append(laser_effect)
 
