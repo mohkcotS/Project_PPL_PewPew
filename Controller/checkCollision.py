@@ -26,6 +26,10 @@ def CheckCollision(Entity1, Entity2):
                     Entity1.bullets.remove(bullet)
                     return True
             else:
-                return True
+                if Entity2.health > 1:
+                    Entity2.health -= 1
+                    Entity1.bullets.remove(bullet)
+                else:   
+                    return True
 
     return False

@@ -1,6 +1,6 @@
 import random
 def RandomName() :
-    constellation_name = ["Ari","Tau","Gem","Can","Leo","Vir","Lib","Sco","Sag","Cap","Aqu","Pis","Ori","Urs","Lyr"]
+    constellation_name = ["ari","tau","gem","can","leo","vir","lib","sco","sag","cap","aqu","pis","ori","urs","lyr"]
     constellation = random.choice(constellation_name)
     random_numbers = random.randint(0, 999)
     random_numbers_str = f"{random_numbers:03}"

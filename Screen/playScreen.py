@@ -11,6 +11,7 @@ from Entity.Shield.shield import Shield
 from GameHUD.CommandBox import CommandBox
 from GameHUD.RulesBox import RulesBox
 from GameHUD.StatsBox import StatsBox
+from GameHUD.HealthBar import HealthBar
 import random
 from Controller.checkCollision import CheckCollision
 from Utils.handleEvent import handle_events
@@ -26,6 +27,11 @@ def show_play_screen(screen, width, height, clock):
 
     player = Player()
 
+    # Position the health bar
+    health_bar_x = player.x - 75  # Center the health bar (150 width / 2)
+    health_bar_y = player.y + 90  # Below the player
+    health_bar = HealthBar(screen, width, height, health_bar_x, health_bar_y, player)
+
     command_box = CommandBox(screen, width, height, (4/5)*height + line_width)
     rules_box = RulesBox(screen, width, height, (4/5)*height + line_width - 177, command_box.CHAT_WIDTH)
     stats_box = StatsBox(screen, width, height, (4/5)*height + line_width - 37, command_box.CHAT_WIDTH, player)
@@ -34,7 +40,7 @@ def show_play_screen(screen, width, height, clock):
     ingame_buff_list = []
     ingame_shield_list = []
 
-    spawn_interval = 7000  
+    spawn_interval = 8500  
     last_spawn_time = pygame.time.get_ticks() - (spawn_interval - 2000) 
     
     running = True
@@ -63,8 +69,8 @@ def show_play_screen(screen, width, height, clock):
                 if(CheckCollision(monster,shield)):
                     ingame_shield_list.remove(shield)
 
-            # if (CheckCollision(monster, player)):
-            #     return    
+            if (CheckCollision(monster, player)):
+                return    
 
 
         # Xử lý thu thập buff (Laser và Freeze)
@@ -93,7 +99,10 @@ def show_play_screen(screen, width, height, clock):
         # STATS BOX
         stats_box.draw()
 
-        #BUFF
+        # Health Bar
+        health_bar.draw()
+
+        # BUFF
         for buff in ingame_buff_list[:]: 
             buff.update()
             if isinstance(buff, (BuffLazer, BuffFreeze)) and buff.is_effect and buff.is_expired():
@@ -101,8 +110,7 @@ def show_play_screen(screen, width, height, clock):
             else:
                 buff.draw(screen)
 
-        #SHIELD
-        
+        # SHIELD        
         for shield in ingame_shield_list[:]:
             shield.draw(screen)
 

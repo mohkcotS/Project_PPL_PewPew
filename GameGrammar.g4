@@ -23,8 +23,8 @@ ATTACK: 'attack';
 DIRECTION: 'left' | 'mleft' | 'mid' | 'mright' | 'right';
 SKILL: 'laser' |'freeze';
 HEAL: 'heal';
-BUFF: 'laserP' | 'freezeP';
+BUFF: 'laserp' | 'freezep';
 
-ID: [A-Za-z0-9]+;
+ID: [a-z0-9]+;
 
 WS : [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
