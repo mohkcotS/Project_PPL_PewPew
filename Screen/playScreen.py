@@ -42,6 +42,7 @@ def show_play_screen(screen, width, height, clock):
 
     spawn_interval = 8500  
     last_spawn_time = pygame.time.get_ticks() - (spawn_interval - 2000) 
+    gameover = False
     
     running = True
     while running:
@@ -70,7 +71,7 @@ def show_play_screen(screen, width, height, clock):
                     ingame_shield_list.remove(shield)
 
             if (CheckCollision(monster, player)):
-                return    
+                gameover = True 
 
 
         # Xử lý thu thập buff (Laser và Freeze)
@@ -82,7 +83,7 @@ def show_play_screen(screen, width, height, clock):
                     player.freeze_buff += 1
                 ingame_buff_list.remove(buff)
 
-        if current_time - last_spawn_time >= spawn_interval and random.random() < 0.5:
+        if current_time - last_spawn_time >= spawn_interval and random.random() < 0.5 and not gameover:
             new_monster = random.choice([MidMonster(),RightMonster(),MidLeftMonster(),MidRightMonster(),LeftMonster()])
             ingame_monster_list.append(new_monster)
             last_spawn_time = current_time
@@ -114,16 +115,31 @@ def show_play_screen(screen, width, height, clock):
         for shield in ingame_shield_list[:]:
             shield.draw(screen)
 
+        if(player.health == 0):
+            gameover = True
+
         # PLAYER
         player.draw(screen)
-        player.update_bullets()
+        if not gameover:
+            player.update_bullets()
         
         # MONSTER
         for monster in ingame_monster_list:
             monster.draw(screen)
-            monster.move()
-            monster.auto_shoot()
-            monster.update_bullets()
+            if not gameover:
+                monster.move()
+                monster.auto_shoot()
+                monster.update_bullets()
+
+        if(gameover == True):
+            overlay = pygame.Surface((width, height), pygame.SRCALPHA)
+            overlay.fill((0, 0, 0, 100))  
+            screen.blit(overlay, (0, 0))
+
+            font = pygame.font.SysFont(None, 48) 
+            score_text = font.render("YOUR SCORE: " + str(player.score), True, (255, 255, 255))  
+
+            screen.blit(score_text, ((width - score_text.get_width()) // 2, 400))
 
         pygame.display.flip()
         clock.tick(60)
