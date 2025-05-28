@@ -12,6 +12,7 @@ from GameHUD.CommandBox import CommandBox
 from GameHUD.RulesBox import RulesBox
 from GameHUD.StatsBox import StatsBox
 from GameHUD.HealthBar import HealthBar
+from GameHUD.ErrorBox import ErrorBox
 import random
 from Controller.checkCollision import CheckCollision
 from Utils.handleEvent import handle_events
@@ -35,6 +36,7 @@ def show_play_screen(screen, width, height, clock):
     command_box = CommandBox(screen, width, height, (4/5)*height + line_width)
     rules_box = RulesBox(screen, width, height, (4/5)*height + line_width - 177, command_box.CHAT_WIDTH)
     stats_box = StatsBox(screen, width, height, (4/5)*height + line_width - 37, command_box.CHAT_WIDTH, player)
+    error_box = ErrorBox(screen, width, height, (4/5)*height + line_width - 37, stats_box.STATS_WIDTH)
 
     ingame_monster_list = []
     ingame_buff_list = []
@@ -56,7 +58,7 @@ def show_play_screen(screen, width, height, clock):
             if event.type == pygame.QUIT:
                 running = False
             else:
-                handle_events(event, command_box, player,ingame_buff_list, ingame_monster_list,ingame_shield_list)
+                handle_events(event, command_box, player, ingame_buff_list, ingame_monster_list, ingame_shield_list, error_box)
 
         for monster in ingame_monster_list:
             if (CheckCollision(player, monster)):
@@ -102,6 +104,9 @@ def show_play_screen(screen, width, height, clock):
 
         # STATS BOX
         stats_box.draw()
+
+        # ERROR BOX
+        error_box.draw()
 
         # Health Bar
         health_bar.draw()

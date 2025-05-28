@@ -6,7 +6,7 @@ from antlr4 import *
 
 # Define your variables
 DIR = os.path.dirname(__file__)
-ANTLR_JAR = 'C:/Program Files/ANTLR/antlr4-4.9.2-complete.jar'
+ANTLR_JAR = 'D:\\Download\\antlr4-4.9.2-complete.jar'
 CPL_Dest = 'CompiledFiles'
 SRC = 'GameGrammar.g4'
 SRC = 'GameGrammar.g4'
