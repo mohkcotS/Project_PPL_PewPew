@@ -153,7 +153,7 @@ def show_play_screen(screen, width, height, clock):
 
         if(gameover == True):
             overlay = pygame.Surface((width, height), pygame.SRCALPHA)
-            overlay.fill((0, 0, 0, 180))  
+            overlay.fill((0, 0, 0, 220))  
             screen.blit(overlay, (0, 0))
 
             font = pygame.font.Font("src/assets/font/SpaceMonoB.ttf", 28) 
