@@ -23,7 +23,7 @@ class ErrorBox:
         self.error_color = (255, 0, 0)  # Màu đỏ cho lỗi
         self.border_color = (150, 0, 0)
         self.text_color = (255, 255, 255)
-        self.font = pygame.font.Font("src/assets/font/m5x7.ttf", 30)
+        self.font = pygame.font.Font("src/assets/font/SpaceMonoB.ttf", 20)
 
     def set_error(self, message):
         self.error_message = message

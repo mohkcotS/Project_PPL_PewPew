@@ -61,6 +61,8 @@ class Bullet(Entity):
         elif self.direction == "mright":
             self.x += 10
             self.y += 105
+        elif self.direction == "mid":
+            self.y += 100
 
     def move(self):
         if pygame.time.get_ticks() < getattr(self, "freeze_until", 0):

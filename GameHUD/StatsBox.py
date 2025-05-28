@@ -50,21 +50,21 @@ class StatsBox:
         skill_y_offset = self.stats_frame.y + 65
 
         # Heal (bố cục ngang)
-        heal_opacity = 1.0 if self.player.heal_buff >= 3 else 0.5
+        heal_opacity = 1.0 if self.player.heal_buff >= 3 else 0.3
         heal_surface = self.heal_image.copy()
         heal_surface.set_alpha(int(heal_opacity * 255))
         self.screen.blit(heal_surface, (self.stats_frame.x + 25, skill_y_offset))
         self._draw_usage_circle(self.stats_frame.x + 50, skill_y_offset, self.player.heal_buff)
 
         # Laser
-        laser_opacity = 1.0 if self.player.laser_buff >= 3 else 0.5
+        laser_opacity = 1.0 if self.player.laser_buff >= 3 else 0.3
         laser_surface = self.laser_image.copy()
         laser_surface.set_alpha(int(laser_opacity * 255))
         self.screen.blit(laser_surface, (self.stats_frame.x + 25 + skill_spacing, skill_y_offset))
         self._draw_usage_circle(self.stats_frame.x + 50 + skill_spacing, skill_y_offset, self.player.laser_buff)
 
         # Freeze
-        freeze_opacity = 1.0 if self.player.freeze_buff >= 3 else 0.5
+        freeze_opacity = 1.0 if self.player.freeze_buff >= 3 else 0.3
         freeze_surface = self.freeze_image.copy()
         freeze_surface.set_alpha(int(freeze_opacity * 255))
         self.screen.blit(freeze_surface, (self.stats_frame.x + 25 + 2 * skill_spacing, skill_y_offset))
