@@ -44,7 +44,7 @@ def show_buff_screen(screen, width, height, clock):
     heal_Title = text_font1.render("HEAL", True, (73,201,3))
     healInstruction = [
     "Kill enemies to gather",
-    "Collect 5 pieces to recover 1 HP.",
+    "Collect 3 pieces to recover 1 HP.",
     ]
 
     laser_Title = text_font1.render("LASER SKILL", True, (255,188,34))

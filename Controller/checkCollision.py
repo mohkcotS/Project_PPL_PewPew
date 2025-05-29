@@ -18,7 +18,7 @@ def CheckCollision(Entity1, Entity2):
 
         if distance < (bullet.radius + Entity2.radius):
             if Entity1.isPlayer == "true":
-                if bullet.name == Entity2.name:
+                if bullet.name == Entity2.name and bullet.direction.value == Entity2.direction:
                     Entity1.bullets.remove(bullet)
                     return True
             elif isinstance(Entity2, Shield):
